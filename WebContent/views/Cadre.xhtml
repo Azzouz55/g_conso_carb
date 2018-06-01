@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<ui:composition template="../facelets/Template.xhtml">
+	<ui:define name="title">
+		<h2>Gestion des cadres</h2>
+	</ui:define>
+	<ui:define name="content">
+		<body>
+			<h:form id="f1">
+				<p:dataTable id="tab" value="#{cadreBean.list}" var="cadre" rows="5"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10"
+					emptyMessage="Aucun enregistrement trouvé.">
+					<f:facet name="header">
+					Cadres
+						<p:commandLink action="#{cadreBean.clickAdd()}" update=":f1:panel"
+							styleClass="btn btn-round btn-success btn" onclick="PF('dlg1').show();"
+							process="@this" style="float:right;color:white">
+							<i class="fa fa-plus"></i>
+							Ajouter
+						</p:commandLink>
+						<br/>
+						<br/>
+					</f:facet>
+
+					<p:column style="width:30px">
+						<p:rowToggler />
+					</p:column>
+
+					<p:column headerText="Nom">
+						<h:outputText value="#{cadre.employee.nom}" />
+					</p:column>
+
+					<p:column headerText="Prénom">
+						<h:outputText value="#{cadre.employee.prenom}" />
+					</p:column>
+
+					<p:column headerText="Matricule">
+						<h:outputText value="#{cadre.matricule}" />
+					</p:column>
+
+					<p:column headerText="Cin">
+						<h:outputText value="#{cadre.employee.cin}" />
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								<div align="left">
+									<h:outputText title="Infos" value="Informations :" />
+								</div>
+							</f:facet>
+
+							<h:outputText value="E-mail:" />
+							<h:outputText value="#{cadre.employee.email}" />
+
+							<h:outputText value="Adresse:" />
+							<h:outputText value="#{cadre.employee.adresse} " />
+
+							<h:outputText value="Tel:" />
+							<h:outputText value="#{cadre.employee.tel}" />
+
+							<h:outputText value="Catégorie" />
+							<h:outputText value=" #{cadre.categorie.libelle}" />
+
+							<h:outputText value="Département" />
+							<h:outputText value=" #{cadre.departement.libelle}" />
+
+						</p:panelGrid>
+					</p:rowExpansion>
+					<p:column headerText="Action">
+
+						<p:commandLink title="Supprimer"
+							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
+							action="#{cadreBean.supprimer()}" update="tab" process="@this">
+							<f:setPropertyActionListener value="#{cadre}"
+								target="#{cadreBean.cadre}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Editer" action="#{cadreBean.clickEdit()}"
+							style="color:white" styleClass="btn btn-round btn-warning btn-lg"
+							update=":f1:panel" onclick="PF('dlg1').show();" process="@this">
+							<f:setPropertyActionListener value="#{cadre}"
+								target="#{cadreBean.cadre}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Affectation Voiture"
+							action="AffectationVoitureCadre" style="color:white"
+							styleClass="btn btn-round btn-info btn-lg" process="@this" immediate="true">
+							<f:setPropertyActionListener value="#{cadre}"
+								target="#{affectationVoitureCadreBean.cadre}" />
+							<i class="fa fa-car"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Affectation Bon Carburant" action="BonCadre"
+							style="color:white" styleClass="btn btn-round btn-info btn-lg"
+							process="@this" immediate="true">
+							<f:setPropertyActionListener value="#{cadre}"
+								target="#{bonCadreBean.cadre}" />
+							<i class="fa fa-tint"></i>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<p:dialog header="Cadre" widgetVar="dlg1" resizable="false" modal="true">
+
+					<h:panelGrid columns="2" id="panel">
+						<h:outputText value="Matricule : " />
+						<p:inputText value="#{cadreBean.cadre.employee.matricule}"
+							style="width:200px" required="true" placeholder="Matricule"
+							requiredMessage="Matricule obligatoire" maxlength="8"
+							disabled="#{cadreBean.btnEdit}"></p:inputText>
+
+						<h:outputText value="Cin : " />
+						<p:inputText value="#{cadreBean.cadre.employee.cin}"
+							style="width:200px" required="true" placeholder="Carte d'identité nationale"
+							requiredMessage="CIN obligatoire" maxlength="8">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+
+						<h:outputText value="Nom : " />
+						<p:inputText value="#{cadreBean.cadre.employee.nom}"
+							style="width:200px" required="true" placeholder="Nom" maxlength="20"
+							requiredMessage="Nom obligatoire"></p:inputText>
+
+
+						<h:outputText value="Prénom : " />
+						<p:inputText value="#{cadreBean.cadre.employee.prenom}" maxlength="20"
+							style="width:200px" required="true" placeholder="Prénom"
+							requiredMessage="Prénom obligatoire"></p:inputText>
+
+
+						<h:outputText value="Email : " />
+						<p:inputText value="#{cadreBean.cadre.employee.email}" maxlength="40"
+							style="width:200px" required="true" placeholder="E-Mail"
+							requiredMessage="Email obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
+						</p:inputText>
+
+
+						<h:outputText value="Adresse : " />
+						<p:inputText value="#{cadreBean.cadre.employee.adresse}" maxlength="30"
+							style="width:200px" required="true" placeholder="Adresse"
+							requiredMessage="Adresse obligatoire"></p:inputText>
+
+
+						<h:outputText value="Téléphone : " />
+						<p:inputText value="#{cadreBean.cadre.employee.tel}"
+							style="width:200px" required="true" placeholder="Numéro de téléphone"
+							requiredMessage="Téléphone obligatoire" maxlength="8">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+						<h:outputText value="Departement : " />
+						<p:selectOneMenu value="#{cadreBean.cadre.departement.id}"
+							style="width:200px" required="true"
+							requiredMessage="Departement obligatoire">
+							<f:selectItem itemLabel="Sélectionnez un départemet" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadreBean.listDepartement}" var="dep"
+								itemLabel="#{dep.libelle}" itemValue="#{dep.id}" />
+						</p:selectOneMenu>
+
+
+						<h:outputText value="Categorie : " />
+						<p:selectOneMenu value="#{cadreBean.cadre.categorie.id}"
+							style="width:200px" required="true"
+							requiredMessage="Categorie obligatoire">
+							<f:selectItem itemLabel="Sélectionnez une catégorie" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadreBean.listCategorie}" var="cat"
+								itemLabel="#{cat.libelle}" itemValue="#{cat.id}" />
+						</p:selectOneMenu>
+						
+						<p:commandLink title="Ajouter" styleClass="btn btn-primary btn-lg"
+							style="color:white;margin-top:5px" action="#{cadreBean.ajouter()}"
+							update="tab panel" rendered="#{cadreBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<i class="fa fa-check"></i>
+							<p:confirm header="Confirmation"
+								message="Vous etes sur d'ajouter cet enregistrement?"
+								icon="ui-icon-alert" />
+						</p:commandLink>
+						
+						<p:commandLink title="Modifier"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{cadreBean.modifier()}" update="tab panel"
+							rendered="#{cadreBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this"
+							update="panel">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+					</h:panelGrid>
+
+
+				</p:dialog>
+
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" life="2000" />
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+
+		</body>
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+			</script>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="gestion_carburant_db" match-name="affectation"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="bon_cadre"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="bon_carburant"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="bon_mission"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="cadre"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="categorie"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="chauffeur"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="coordonnee"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="departement"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="employee"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="entree_bon"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="marque"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="mission"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="model"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="type_carburant"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="user"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="ville"/>
+  <table-filter match-catalog="gestion_carburant_db" match-name="voiture"/>
+</hibernate-reverse-engineering>

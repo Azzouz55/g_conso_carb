@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+
+	<div class="top_nav">
+		<div class="nav_menu" style="margin-bottom: 0px;">
+			<nav>
+				<div class="nav toggle">
+					<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class=""><a href="javascript:;"
+						class="user-profile dropdown-toggle" data-toggle="dropdown"
+						aria-expanded="false"> <i class="fa fa-user"></i> <span
+							class=" fa fa-angle-down"></span></a>
+						<ul class="dropdown-menu dropdown-usermenu pull-right">
+							<li><a onclick="PF('dlg').show();">Profile</a></li>
+							<li>
+								<form id="f1" action="#{request.contextPath}/appLogout"
+									method="post">
+									<a href="javascript:{}"
+										onclick="document.getElementById('f1').submit();"> <i
+										class="fa fa-sign-out pull-right" /> Déconnexion
+									</a>
+								</form>
+							</li>
+						</ul></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<p:dialog header="Profile : #{userProfileBean.user.matricule}"
+		widgetVar="dlg" resizable="false" width="400" modal="true">
+		<p:panel id="basic"
+			header="#{userProfileBean.user.employee.nom} #{userProfileBean.user.employee.prenom}"
+			width="400">
+			<div class="ui-g">
+				<div class="ui-g-5">
+					<h:outputText value="N° CIN:" />
+				</div>
+				<div class="ui-g-5">
+					<h:outputText value="#{userProfileBean.user.employee.cin}" />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-5">
+					<h:outputText value="Adresse:" />
+				</div>
+				<div class="ui-g-5">
+					<h:outputText value="#{userProfileBean.user.employee.adresse}" />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-5">
+					<h:outputText value="N° Téléphone:" />
+				</div>
+				<div class="ui-g-5">
+					<h:outputText value="#{userProfileBean.user.employee.tel}" />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-5">
+					<h:outputText value="E-Mail:" />
+				</div>
+				<div class="ui-g-5">
+					<h:outputText value="#{userProfileBean.user.employee.email}" />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-5">
+					<h:outputText value="Rôle:" />
+				</div>
+				<div class="ui-g-5">
+					<h:outputText value="#{userProfileBean.user.role}" />
+				</div>
+			</div>
+		</p:panel>
+
+	</p:dialog>
+
+
+
+
+</body>
+</html>

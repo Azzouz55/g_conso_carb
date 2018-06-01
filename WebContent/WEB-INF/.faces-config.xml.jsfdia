@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="Cadre::#views#Cadre.xhtml" NAME="output"
+    PATH="/views/Cadre.xhtml" TARGET="rules:#views#Cadre.xhtml"
+    TITLE="Cadre" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Chauffeur::#views#Chauffeur.xhtml"
+    NAME="output1" PATH="/views/Chauffeur.xhtml"
+    TARGET="rules:#views#Chauffeur.xhtml" TITLE="Chauffeur" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="EntreBon::#views#EntreBon.xhtml"
+    NAME="output2" PATH="/views/EntreBon.xhtml"
+    TARGET="rules:#views#EntreBon.xhtml" TITLE="EntreBon" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Voiture::#views#Voiture.xhtml"
+    NAME="output3" PATH="/views/Voiture.xhtml"
+    TARGET="rules:#views#Voiture.xhtml" TITLE="Voiture" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Mission::#views#Mission.xhtml"
+    NAME="output4" PATH="/views/Mission.xhtml"
+    TARGET="rules:#views#Mission.xhtml" TITLE="Mission" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Marque::#admin#Marque.xhtml" NAME="output5"
+    PATH="/admin/Marque.xhtml" TARGET="rules:#admin#Marque.xhtml"
+    TITLE="Marque" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Ville::#admin#Ville.xhtml" NAME="output6"
+    PATH="/admin/Ville.xhtml" TARGET="rules:#admin#Ville.xhtml"
+    TITLE="Ville" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="BonCarburant::#admin#BonCarburant.xhtml"
+    NAME="output7" PATH="/admin/BonCarburant.xhtml"
+    TARGET="rules:#admin#BonCarburant.xhtml" TITLE="BonCarburant" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="TypeCarburant::#admin#TypeCarburant.xhtml"
+    NAME="output8" PATH="/admin/TypeCarburant.xhtml"
+    TARGET="rules:#admin#TypeCarburant.xhtml" TITLE="TypeCarburant" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Categorie::#admin#Categorie.xhtml"
+    NAME="output9" PATH="/admin/Categorie.xhtml"
+    TARGET="rules:#admin#Categorie.xhtml" TITLE="Categorie" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Users::#admin#Users.xhtml" NAME="output10"
+    PATH="/admin/Users.xhtml" TARGET="rules:#admin#Users.xhtml"
+    TITLE="Users" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#Cadre.xhtml" PATH="/views/Cadre.xhtml"
+  SHAPE="320,8,50,57" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#Cadre.xhtml:0" NAME="item"
+   PATH="/views/Cadre.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="AffectationVoitureCadre::#views#AffectationVoitureCadre.xhtml"
+    NAME="output" PATH="/views/AffectationVoitureCadre.xhtml"
+    TARGET="rules:#views#AffectationVoitureCadre.xhtml"
+    TITLE="AffectationVoitureCadre" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="BonCadre::#views#BonCadre.xhtml"
+    NAME="output1" PATH="/views/BonCadre.xhtml"
+    TARGET="rules:#views#BonCadre.xhtml" TITLE="BonCadre" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#Chauffeur.xhtml"
+  PATH="/views/Chauffeur.xhtml" SHAPE="336,104,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#EntreBon.xhtml"
+  PATH="/views/EntreBon.xhtml" SHAPE="367,168,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#Voiture.xhtml"
+  PATH="/views/Voiture.xhtml" SHAPE="362,226,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#Mission.xhtml"
+  PATH="/views/Mission.xhtml" SHAPE="359,278,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#Mission.xhtml:0" NAME="item"
+   PATH="/views/Mission.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="BonMission::#views#BonMission.xhtml"
+    NAME="output" PATH="/views/BonMission.xhtml"
+    TARGET="rules:#views#BonMission.xhtml" TITLE="BonMission" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#admin#Marque.xhtml"
+  PATH="/admin/Marque.xhtml" SHAPE="363,361,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#admin#Marque.xhtml:0" NAME="item"
+   PATH="/admin/Marque.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="Model::#admin#Model.xhtml" NAME="output"
+    PATH="/admin/Model.xhtml" TARGET="rules:#admin#Model.xhtml"
+    TITLE="Model" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#admin#Ville.xhtml" PATH="/admin/Ville.xhtml"
+  SHAPE="366,420,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#admin#Ville.xhtml:0" NAME="item"
+   PATH="/admin/Ville.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="Departement::#admin#Departement.xhtml"
+    NAME="output" PATH="/admin/Departement.xhtml"
+    TARGET="rules:#admin#Departement.xhtml" TITLE="Departement" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#admin#BonCarburant.xhtml"
+  PATH="/admin/BonCarburant.xhtml" SHAPE="379,474,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#admin#TypeCarburant.xhtml"
+  PATH="/admin/TypeCarburant.xhtml" SHAPE="360,525,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#admin#Categorie.xhtml"
+  PATH="/admin/Categorie.xhtml" SHAPE="376,575,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#admin#Users.xhtml" PATH="/admin/Users.xhtml"
+  SHAPE="402,609,0,0" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#AffectationVoitureCadre.xhtml"
+  PATH="/views/AffectationVoitureCadre.xhtml" SHAPE="848,24,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#BonCadre.xhtml"
+  PATH="/views/BonCadre.xhtml" SHAPE="528,17,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#BonMission.xhtml"
+  PATH="/views/BonMission.xhtml" SHAPE="666,260,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#admin#Model.xhtml" PATH="/admin/Model.xhtml"
+  SHAPE="746,342,0,0" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#admin#Departement.xhtml"
+  PATH="/admin/Departement.xhtml" SHAPE="902,406,0,0"
+  model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>

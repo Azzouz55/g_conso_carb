@@ -1,0 +1,81 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Gestion Carburant</title>
+
+	<!-- Bootstrap -->
+	<link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="../assets/vendors/font-awesome/css/font-awesome.min.css"
+		rel="stylesheet" />
+	<!-- NProgress -->
+	<link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet" />
+
+	<!-- Custom Theme Style -->
+	<link href="../assets/build/css/custom.min.css" rel="stylesheet" />
+</h:head>
+<body class="nav-md">
+<div class="container body">
+	<div class="main_container">
+		<ui:include src="../facelets/Menu.xhtml"></ui:include>
+		<ui:include src="../facelets/Header.xhtml"></ui:include>
+
+		<div class="right_col" role="main" style="min-height: 335px;">
+			<div class="">
+			
+				<div class="clearfix"></div>
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>
+								
+								<ui:insert name="title"></ui:insert>
+								</h2>
+							
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+							
+							<ui:insert name="content"></ui:insert>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<ui:include src="../facelets/Footer.xhtml"></ui:include>
+	</div>
+</div>
+
+	<!-- jQuery
+	<script src="../assets/vendors/jquery/dist/jquery.min.js"></script> -->
+	<!-- Bootstrap -->
+	<script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- FastClick -->
+	<script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../assets/vendors/nprogress/nprogress.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="../assets/build/js/custom.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<ui:composition template="../facelets/Template.xhtml">
+	<ui:define name="title">
+	<h2>Gestion des Villes</h2>
+	</ui:define>
+	<ui:define name="content">
+		<body>
+
+			<h:form id="f1">
+
+				<p:dataTable id="tab" value="#{villeBean.list}" var="ville"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rows="5" rowsPerPageTemplate="5,10"
+					emptyMessage="Aucun enregistrement trouvé.">
+					<f:facet name="header">
+					Villes
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-success" update=":f1:panel"
+							style="float:right;color:white" action="#{villeBean.clickAdd()}"
+							onclick="PF('dlg1').show();" process="@this">
+							<i class="fa fa-plus"></i>
+							Ajouter
+						</p:commandLink>
+						<br />
+						<br />
+					</f:facet>
+					<p:column headerText="Libelle">
+						<h:outputText value="#{ville.libelle}" />
+					</p:column>
+					<p:column headerText="Action">
+
+						<p:commandLink title="Supprimer"
+							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
+							action="#{villeBean.supprimer()}" update="tab" process="@this">
+							<f:setPropertyActionListener value="#{ville}"
+								target="#{villeBean.ville}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Editer" style="color:white"
+							styleClass="btn btn-round btn-warning btn-lg"
+							action="#{villeBean.clickEdit()}" update=":f1:panel"
+							onclick="PF('dlg1').show();" process="@this">
+							<f:setPropertyActionListener value="#{ville}"
+								target="#{villeBean.ville}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+						<p:commandLink title="Détails" style="color:white"
+							styleClass="btn btn-round btn-info btn-lg" action="Departement"
+							process="@this">
+
+							<f:setPropertyActionListener value="#{ville}"
+								target="#{departementBean.ville}" />
+							<i class="fa fa-eye"></i>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+
+
+				<p:dialog header="Ville" widgetVar="dlg1" resizable="false" modal="true">
+
+					<h:panelGrid columns="2" id="panel">
+						<h:outputText value="Libelle" />
+						<p:inputText value="#{villeBean.ville.libelle}" required="true"
+							requiredMessage="Libelle obligatoire" maxlength="20">
+							<p:keyFilter regEx="/[a-z_]/i" />
+							</p:inputText>
+
+						<h:outputText value="Latitude" />
+						<p:inputText value="#{villeBean.coordonnee.latitude}"
+							required="true" requiredMessage="Latitude obligatoire">
+							<p:keyFilter regEx="/[\d\.]/" />
+							</p:inputText>
+
+						<h:outputText value="Longitude" />
+						<p:inputText value="#{villeBean.coordonnee.longitude}"
+							required="true" requiredMessage="Laongitude obligatoire">
+							<p:keyFilter regEx="/[\d\.]/" />
+							</p:inputText>
+
+						<h:outputText value="Altitude" />
+						<p:inputText value="#{villeBean.coordonnee.altitude}"
+							required="true" requiredMessage="Altitude obligatoire">
+							<p:keyFilter regEx="/[\d\.]/" />
+							</p:inputText>
+
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
+							style="color:white;margin-top:5px" action="#{villeBean.ajouter()}" update="tab"
+							rendered="#{villeBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status, args)">
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+
+						<p:commandLink title="Modifier"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{villeBean.modifier()}" update="tab"
+							rendered="#{villeBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status, args)">
+
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+					</h:panelGrid>
+
+
+				</p:dialog>
+
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" />
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+
+		</body>
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+			</script>
+	</ui:define>
+</ui:composition>
+</html>

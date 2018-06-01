@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+"classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gestion_carburant_db</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">true</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.validator.apply_to_ddl">false</property>
+        <property name="hibernate.validator.autoregister_listeners">false</property>
+        <mapping class="com.pfe.gestioncarburant.entities.Affectation"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Cadre"/>
+        <mapping class="com.pfe.gestioncarburant.entities.BonCadre"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Categorie"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Chauffeur"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Model"/>
+        <mapping class="com.pfe.gestioncarburant.entities.TypeCarburant"/>
+        <mapping class="com.pfe.gestioncarburant.entities.User"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Departement"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Coordonnee"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Employee"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Marque"/>
+        <mapping class="com.pfe.gestioncarburant.entities.BonMission"/>
+        <mapping class="com.pfe.gestioncarburant.entities.EntreeBon"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Voiture"/>
+        <mapping class="com.pfe.gestioncarburant.entities.BonCarburant"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Ville"/>
+        <mapping class="com.pfe.gestioncarburant.entities.Mission"/>
+    </session-factory>
+</hibernate-configuration>

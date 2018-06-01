@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<f:view>
+		<f:metadata>
+			<f:viewParam name="id" />
+			<f:event type="preRenderView" listener="#{bonMissionBean.init}" />
+		</f:metadata>
+	</f:view>
+
+
+</h:head>
+<ui:composition template="../facelets/Template.xhtml">
+	<ui:define name="title">
+		<h2>Affectation des bons de mission '#<h:outputText value="#{bonMissionBean.mission.id}"/>'</h2>
+	</ui:define>
+	<ui:define name="content">
+		<body>
+			<h:form id="f1">
+				<p:dataTable id="tab" value="#{bonMissionBean.list}" var="aff"
+					rows="10" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20"
+					emptyMessage="Aucun enregistrement trouvé.">
+					<f:facet name="header">
+					Bons de carburant affectés
+						<p:commandLink styleClass="btn btn-round btn-success"
+							style="float:left;color:white" action="Mission"
+							process="@this">
+							<i class="fa fa-arrow-left"></i>
+							Retour
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-success"
+							style="float:right;color:white"
+							action="#{bonMissionBean.clickAdd()}"
+							onclick="PF('dlg1').show();" process="@this" update=":f1:panel">
+							<i class="fa fa-plus"></i>
+							Affecter
+							</p:commandLink>
+						<br />
+						<br />
+					</f:facet>
+
+					<p:column headerText="Date">
+						<h:outputText value="#{aff.dateAffectation}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Bon Carburant">
+						<h:outputText
+							value="#{aff.bonCarburant.typeCarburant.libelle} - #{aff.bonCarburant.litre}L" />
+					</p:column>
+
+					<p:column headerText="Quantité">
+						<h:outputText value="#{aff.qte}" />
+					</p:column>
+
+					<p:column headerText="Action">
+						<p:commandLink title="Supprimer"
+							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
+							action="#{bonMissionBean.supprimer()}" update="tab"
+							process="@this">
+							<f:setPropertyActionListener value="#{aff}"
+								target="#{bonMissionBean.bonMission}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Editer" style="color:white"
+							styleClass="btn btn-round btn-warning btn-lg"
+							action="#{bonMissionBean.clickEdit()}" update=":f1:panel"
+							onclick="PF('dlg1').show();" process="@this">
+							<f:setPropertyActionListener value="#{aff}"
+								target="#{bonMissionBean.bonMission}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+					</p:column>
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="1" style="text-align:right"
+								footerText="Totals litres:" />
+							<p:column footerText="#{bonMissionBean.totalLitre}" />
+						</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+
+				<p:dialog widgetVar="dlg1" resizable="false"
+					header="Affecation Bon Carburant" modal="true">
+
+					<h:panelGrid columns="2" id="panel">
+
+						<h:outputText value="Date affectation" />
+						<p:calendar value="#{bonMissionBean.bonMission.dateAffectation}"
+							pattern="dd/MM/yyyy" mindate="Date.now()"
+							rendered="#{bonMissionBean.btnAdd}" style="width:180px">
+						</p:calendar>
+						<p:inputText value="#{bonMissionBean.bonMission.dateAffectation}"
+							pattern="dd/MM/yyyy" rendered="#{bonMissionBean.btnEdit}"
+							style="width:180px">
+						</p:inputText>
+
+						<h:outputText value="Bon Carburant" />
+						<p:selectOneMenu rendered="#{bonMissionBean.btnAdd}"
+							value="#{bonMissionBean.bonCarburant.id}" style="width:180px">
+							<f:selectItem itemLabel="Sélectionnez une option" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{bonMissionBean.listBonCarburant}"
+								var="bonCarburant"
+								itemLabel="#{bonCarburant.typeCarburant.libelle} - #{bonCarburant.litre}"
+								itemValue="#{bonCarburant.id}" />
+						</p:selectOneMenu>
+
+						<p:inputText rendered="#{bonMissionBean.btnEdit}" readonly="true"
+							style="width:180px"
+							value="#{bonMissionBean.bonCarburant.typeCarburant.libelle} - #{bonMissionBean.bonCarburant.litre}L">
+						</p:inputText>
+
+
+
+						<h:outputText value="Quantité" />
+						<p:spinner value="#{bonMissionBean.bonMission.qte}" min="1"
+							max="200" size="3" required="true"
+							requiredMessage="Quantité obligatoire" />
+
+						<p:commandLink styleClass="btn btn-round btn-primary btn-lg"
+							title="Affecter" style="color:white"
+							action="#{bonMissionBean.ajouter()}" update="tab"
+							rendered="#{bonMissionBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-primary btn-lg"
+							title="Modifier" style="color:white"
+							action="#{bonMissionBean.modifier()}" update="tab"
+							rendered="#{bonMissionBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+					</h:panelGrid>
+				</p:dialog>
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" />
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</body>
+
+
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

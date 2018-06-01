@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<ui:composition template="../facelets/Template.xhtml">
+
+	<ui:define name="title">
+		<h2>Gestion des voitures</h2>
+	</ui:define>
+	<ui:define name="content">
+		<body>
+			<h:form id="f1">
+				<p:dataTable id="tab" value="#{voitureBean.list}" var="voiture"
+					rows="5" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10"
+					emptyMessage="Aucun enregistrement trouvé.">
+					<f:facet name="header">
+					Voitures
+						<p:commandLink action="#{voitureBean.clickAdd()}"
+							update=":f1:panel" styleClass="btn btn-round btn-success"
+							onclick="PF('dlg1').show();" process="@this"
+							style="float:right;color:white">
+							<i class="fa fa-plus"></i>
+							Ajouter
+					</p:commandLink>
+						<br />
+						<br />
+					</f:facet>
+
+					<p:column headerText="Matricule">
+						<h:outputText value="#{voiture.matricule}" />
+					</p:column>
+
+					<p:column headerText="Marque">
+						<h:outputText
+							value="#{voiture.model.marque.libelle} #{voiture.model.libelle}" />
+					</p:column>
+
+					<p:column headerText="Transmission">
+						<h:outputText value="#{voiture.transmission}" />
+					</p:column>
+
+					<p:column headerText="Puissance">
+						<h:outputText value="#{voiture.puissance} CV" />
+					</p:column>
+
+					<p:column headerText="Carburant">
+						<h:outputText value="#{voiture.typeCarburant.libelle}" />
+					</p:column>
+
+					<p:column headerText="Réservoire">
+						<h:outputText value="#{voiture.reservoir} L" />
+					</p:column>
+
+					<p:column headerText="Type Attribution">
+						<h:outputText value="#{voiture.typeAttribution}" />
+					</p:column>
+
+					<p:column headerText="Action" style="width:180px">
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
+							title="Supprimer" style="color:white"
+							action="#{voitureBean.supprimer()}" update="tab" process="@this">
+							<f:setPropertyActionListener value="#{voiture}"
+								target="#{voitureBean.voiture}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-warning btn-lg" title="Editer"
+							style="color:white" action="#{voitureBean.clickEdit()}"
+							update=":f1:panel" onclick="PF('dlg1').show();" process="@this">
+							<f:setPropertyActionListener value="#{voiture}"
+								target="#{voitureBean.voiture}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<p:dialog header="Voiture" widgetVar="dlg1" resizable="false"
+					position="center center" modal="true">
+					<h:panelGrid columns="2" id="panel">
+						<h:outputText value="Matricule" />
+						<p:inputText value="#{voitureBean.voiture.matricule}"
+							style="width:200px" readonly="#{voitureBean.read}"
+							required="true" requiredMessage="Matricule obligatoire"
+							maxlength="10" disabled="#{cadreBean.btnEdit}">
+							<p:keyFilter regEx="/[a-z0-9]/i" />
+						</p:inputText>
+
+						<h:outputText value="Marque" />
+
+						<p:selectOneMenu value="#{voitureBean.marque.id}"
+							style="width:200px">
+							<f:selectItem itemLabel="Sélectionnez une marque" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{marqueBean.list}" var="marque"
+								itemLabel="#{marque.libelle}" itemValue="#{marque.id}" />
+							<p:ajax event="change"
+								listener="#{voitureBean.findModelByMarque}" update="selectModel" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Modèle" />
+						<p:selectOneMenu id="selectModel" value="#{voitureBean.modele.id}"
+							style="width:200px">
+							<f:selectItem itemLabel="Sélectionnez un modèle" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{voitureBean.listModel}" var="model"
+								itemLabel="#{model.libelle}" itemValue="#{model.id}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Transmission" />
+						<p:selectOneRadio value="#{voitureBean.voiture.transmission}"
+							required="true" requiredMessage="Transmission obligatoire">
+							<f:selectItem itemLabel="Manuelle " itemValue="Manuelle" />
+							<f:selectItem itemLabel="Automatique" itemValue="Automatique" />
+						</p:selectOneRadio>
+
+						<h:outputText value="Puissance" />
+						<p:spinner value="#{voitureBean.voiture.puissance}" min="1"
+							max="20" size="2" required="true"
+							requiredMessage="Puissance obligatoire" />
+
+						<h:outputText value="TypeCarburant" />
+						<p:selectOneMenu value="#{voitureBean.typeCarburant.id}"
+							style="width:200px">
+
+							<f:selectItem itemLabel="Sélectionnez une option" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{typeCarburantBean.list}"
+								var="typeCarburant" itemLabel="#{typeCarburant.libelle}"
+								itemValue="#{typeCarburant.id}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Réservoir" />
+						<p:inputText value="#{voitureBean.voiture.reservoir}"
+							style="width:200px" required="true"
+							requiredMessage="Réservoir obligatoire">
+							<p:keyFilter regEx="/[\d\-]/"></p:keyFilter>
+						</p:inputText>
+						
+						<p:spinner value="#{voitureBean.voiture.puissance}" min="1"
+							max="70" size="2" required="true"
+							requiredMessage="Puissance obligatoire" />
+
+						<h:outputText value="Type Attribution" />
+						<p:selectOneRadio value="#{voitureBean.voiture.typeAttribution}"
+							required="true" requiredMessage="Type Attribution obligatoire">
+							<f:selectItem itemLabel="Fonction" itemValue="Fonction" />
+							<f:selectItem itemLabel="Service" itemValue="Service" />
+						</p:selectOneRadio>
+
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
+							style="color:white" action="#{voitureBean.ajouter()}"
+							update="tab" rendered="#{voitureBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Modifier"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{voitureBean.modifier()}" update="tab"
+							rendered="#{voitureBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" />
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+
+
+		</body>
+
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+			</script>
+	</ui:define>
+
+</ui:composition>
+</html>

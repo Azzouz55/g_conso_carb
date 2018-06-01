@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	
+</h:head>
+<ui:composition template="../facelets/Template.xhtml">
+	<ui:define name="title">
+		<h2>Gestion des Missions</h2>
+	</ui:define>
+	<ui:define name="content">
+		<body>
+			<h:form id="f1">
+				<p:dataTable id="tab" widgetVar="tab1" value="#{missionBean.list}"
+					var="mission" rows="10" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="Aucun enregistrement trouvé.">
+
+					<f:facet name="header">
+					Missions
+						<p:commandLink action="#{missionBean.clickAdd()}" update=":f1:panel"
+							styleClass="btn btn-round btn-success btn" onclick="PF('dlg1').show();"
+							process="@this" style="float:right;color:white"
+							rendered="#{request.isUserInRole('Administrateur')}">
+							<i class="fa fa-plus"></i>
+										Ajouter
+							</p:commandLink>
+						<br />
+						<br />
+					</f:facet>
+					
+					<p:column headerText="Chauffeur">
+						<h:outputText value="#{mission.id}" />
+					</p:column>
+
+					<p:column style="width:30px">
+						<p:rowToggler />
+					</p:column>
+					<p:column headerText="Responsable">
+						<h:outputText value="#{mission.cadre.matricule}" />
+						<br />
+						<h:outputText
+							value="#{mission.cadre.employee.nom} #{mission.cadre.employee.prenom}" />
+					</p:column>
+
+					<p:column headerText="Chauffeur">
+						<h:outputText value="#{mission.chauffeur.employee.nom}" />
+					</p:column>
+
+					<p:column headerText="Départ">
+						<h:outputText
+							value="#{mission.departementByIdDepartement.libelle} - #{mission.departementByIdDepartement.ville.libelle}" />
+					</p:column>
+
+					<p:column headerText="Destination">
+						<h:outputText
+							value="#{mission.departementByIdDepartementDest.libelle} - #{mission.departementByIdDepartementDest.ville.libelle}" />
+					</p:column>
+
+					<p:column headerText="Date de sortie">
+						<h:outputText value="#{mission.dateSortie}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Date de retour">
+						<h:outputText value="#{mission.dateRetour}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								<div align="left">
+									<h:outputText title="Infos" value="Informations :" />
+								</div>
+							</f:facet>
+
+							<h:outputText value="Voiture :" />
+							<h:outputText
+								value="#{mission.voiture.matricule} - #{mission.voiture.model.marque.libelle} #{mission.voiture.model.libelle}" />
+
+							<h:outputText value="Odométre de sortie :" />
+							<h:outputText value="#{mission.odometreSortie} " />
+
+							<h:outputText value="Odométre de retour :" />
+							<h:outputText value="#{mission.odometreRetour}" />
+
+							<h:outputText value="Distance prévue" />
+							<h:outputText value="#{mission.distancePrevue}" />
+
+							<h:outputText value="Distance parcourue" />
+							<h:outputText value="#{mission.distanceParcourue}" />
+
+						</p:panelGrid>
+					</p:rowExpansion>
+
+					<p:column headerText="Action" style="width:180px">
+						<p:commandLink title="Supprimer"
+							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
+							action="#{missionBean.supprimer()}" update="tab" rendered="#{request.isUserInRole('Administrateur')}" process="@this">
+							<f:setPropertyActionListener value="#{mission}"
+								target="#{missionBean.mission}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Editer" style="color:white"
+							styleClass="btn btn-round btn-warning btn-lg"
+							action="#{missionBean.clickEdit()}" onclick="PF('dlg1').show();"
+							update=":f1:panel" process="@this" immediate="true">
+							<f:setPropertyActionListener value="#{mission}"
+								target="#{missionBean.mission}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Affectation Des Bons" action="BonMission"
+							style="color:white" styleClass="btn btn-round btn-info btn-lg"
+							process="@this" immediate="true">
+							<f:setPropertyActionListener value="#{mission}"
+								target="#{bonMissionBean.mission}" />
+							<i class="fa fa-car"></i>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+
+				<p:dialog header="Mission" widgetVar="dlg1" resizable="false" modal="true">
+
+					<h:panelGrid columns="2" id="panel">
+						<h:outputText value="Cadre" />
+						<p:inputText
+							value="#{missionBean.mission.cadre.matricule} - #{missionBean.mission.cadre.employee.nom}  #{missionBean.mission.cadre.employee.prenom}"
+							style="width:220px" rendered="#{missionBean.btnEdit}"
+							disabled="#{missionBean.btnEdit}" />
+
+						<p:selectOneMenu value="#{missionBean.cadre.matricule}"
+							style="width:220px" required="true"
+							requiredMessage="Cadre obligatoire"
+							rendered="#{missionBean.btnAdd}">
+							<f:selectItem itemLabel="Sélectionnez un cadre" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadreBean.list}" var="cadre"
+								itemLabel="#{cadre.matricule}-#{cadre.employee.nom} #{cadre.employee.prenom}"
+								itemValue="#{cadre.matricule}" />
+						</p:selectOneMenu>
+
+
+						<h:outputText value="Voiture" />
+						<p:selectOneMenu value="#{missionBean.mission.voiture.matricule}"
+							style="width:220px" required="true"
+							requiredMessage="Voiture obligatoire">
+							<f:selectItem itemLabel="Sélectionnez une voiture" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{missionBean.voitureList}" var="car"
+								itemLabel="#{car.matricule}-#{car.model.marque.libelle} #{car.model.libelle}"
+								itemValue="#{car.matricule}" />
+						</p:selectOneMenu>
+
+
+						<h:outputText value="Chauffeur" />
+						<p:selectOneMenu
+							value="#{missionBean.mission.chauffeur.matricule}"
+							style="width:220px" required="true"
+							requiredMessage="Chauffeur obligatoire">
+							<f:selectItem itemLabel="Sélectionnez un chauffeur"
+								noSelectionOption="true" />
+							<f:selectItems value="#{chauffeurBean.list}" var="chauff"
+								itemLabel="#{chauff.matricule}-#{chauff.employee.nom} #{chauff.employee.prenom}"
+								itemValue="#{chauff.matricule}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Ville destinantion" />
+						<p:inputText
+							value="#{missionBean.mission.departementByIdDepartementDest.ville.libelle} - #{missionBean.mission.departementByIdDepartementDest.libelle}"
+							style="width:220px" rendered="#{missionBean.btnEdit}"
+							disabled="#{missionBean.btnEdit}"></p:inputText>
+
+						<p:selectOneMenu value="#{missionBean.villeDest.id}"
+							style="width:220px" rendered="#{missionBean.btnAdd}">
+							<f:selectItem itemLabel="Sélectionnez une ville"
+								noSelectionOption="true" />
+							<f:selectItems value="#{villeBean.list}" var="vil"
+								itemLabel="#{vil.libelle}" itemValue="#{vil.id}" />
+							<p:ajax event="change"
+								listener="#{missionBean.findDepartementByVille}"
+								update="selectDept" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Département destinantion"
+							rendered="#{missionBean.btnAdd}" />
+						<p:selectOneMenu id="selectDept"
+							value="#{missionBean.departementDest.id}" style="width:220px"
+							rendered="#{missionBean.btnAdd}">
+							<f:selectItem itemLabel="Sélectionnez un département"
+								noSelectionOption="true" />
+							<f:selectItems value="#{missionBean.departementDestList}"
+								var="dep" itemLabel="#{dep.libelle}" itemValue="#{dep.id}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Date affectation" />
+						<p:inputText value="#{missionBean.mission.dateSortie}"
+							pattern="dd/MM/yyyy" rendered="#{missionBean.btnEdit}"
+							style="width:220px" disabled="#{missionBean.btnEdit}">
+						</p:inputText>
+						<p:calendar value="#{missionBean.mission.dateSortie}"
+							pattern="dd/MM/yyyy" mindate="Date.now()"
+							placeholder="Date de retour" rendered="#{missionBean.btnAdd}"
+							style="width:220px">
+						</p:calendar>
+
+
+						<h:outputText value="Date de retour"
+							rendered="#{bonCadreBean.btnEdit}" />
+						<p:calendar value="#{missionBean.mission.dateRetour}"
+							pattern="dd/MM/yyyy" mindate="Date.now()"
+							placeholder="Date de retour" rendered="#{bonCadreBean.btnEdit}"
+							style="width:220px">
+						</p:calendar>
+
+						<h:outputText value="Odométre de sortie" />
+						<p:inputText value="#{missionBean.mission.odometreSortie}"
+							style="width:220px" required="true"
+							placeholder="Odométre de sortie"
+							requiredMessage="Odométre obligatoire" maxlength="6"
+							disabled="#{missionBean.btnEdit}">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+						<h:outputText value="Odométre de retour"
+							rendered="#{missionBean.btnEdit}" />
+						<p:inputText value="#{missionBean.mission.odometreRetour}"
+							style="width:220px" placeholder="Odométre de retour"
+							maxlength="6" rendered="#{missionBean.btnEdit}">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
+							style="color:white" action="#{missionBean.ajouter()}"
+							update="tab panel" rendered="#{missionBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<i class="fa fa-check"></i>
+							<p:confirm header="Confirmation"
+								message="Vous etes sur d'ajouter cet enregistrement?"
+								icon="ui-icon-alert" />
+						</p:commandLink>
+
+
+						<p:commandLink title="Modifier"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{missionBean.modifier()}" update="tab panel"
+							rendered="#{missionBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this"
+							update="panel">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" />
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</body>
+
+
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

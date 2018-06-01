@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+
+</h:head>
+
+<ui:composition template="../facelets/Template.xhtml">
+	<ui:define name="title">
+		<h2>Gestion des Chauffeurs</h2>
+	</ui:define>
+	<ui:define name="content">
+		<body>
+
+			<h:form id="f1">
+
+
+				<br />
+			 	<p:dataTable id="tab" value="#{chauffeurBean.list}" var="chauffeur"
+					rows="5" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10"
+					emptyMessage="Aucun enregistrement trouvé.">
+					<f:facet name="header">
+					Chauffeurs
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-success"
+							style="float:right;color:white" update=":f1:panel"
+							action="#{chauffeurBean.clickAdd()}" onclick="PF('dlg1').show();"
+							process="@this">
+							<i class="fa fa-plus"></i>
+							Ajouter
+						</p:commandLink>
+						<br />
+						<br />
+					</f:facet>
+					<p:column style="width:30px">
+						<p:rowToggler />
+					</p:column>
+					<p:column headerText="Matricule">
+						<h:outputText value="#{chauffeur.matricule}" />
+					</p:column>
+					<p:column headerText="Cin">
+						<h:outputText value="#{chauffeur.employee.cin}" />
+					</p:column>
+					<p:column headerText="Nom">
+						<h:outputText value="#{chauffeur.employee.nom}" />
+					</p:column>
+					<p:column headerText="Prénom">
+						<h:outputText value="#{chauffeur.employee.prenom}" />
+					</p:column>
+					<p:rowExpansion>
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								<div align="left">
+									<h:outputText title="Infos" value="Informations :" />
+								</div>
+							</f:facet>
+
+							<h:outputText value="E-mail:" />
+							<h:outputText value="#{chauffeur.employee.email}" />
+
+							<h:outputText value="Adresse:" />
+							<h:outputText value="#{chauffeur.employee.adresse} " />
+
+							<h:outputText value="Tel:" />
+							<h:outputText value="#{chauffeur.employee.tel}" />
+						</p:panelGrid>
+					</p:rowExpansion>
+
+
+
+					<p:column headerText="Action">
+
+						<p:commandLink title="Supprimer"
+							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
+							action="#{chauffeurBean.supprimer()}" update="tab"
+							process="@this">
+							<f:setPropertyActionListener value="#{chauffeur}"
+								target="#{chauffeurBean.chauffeur}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Editer" style="color:white"
+							styleClass="btn btn-round btn-warning btn-lg"
+							action="#{chauffeurBean.clickEdit()}" update=":f1:panel"
+							onclick="PF('dlg1').show();" process="@this">
+							<f:setPropertyActionListener value="#{chauffeur}"
+								target="#{chauffeurBean.chauffeur}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Affectation Mission" action="Mission"
+							style="color:white" styleClass="btn btn-round btn-info btn-lg"
+							process="@this" immediate="true">
+							<f:setPropertyActionListener value="#{chauffeur}"
+								target="#{missionBean.chauffeur}" />
+							<i class="fa fa-car"></i>
+						</p:commandLink>
+
+					</p:column>
+				</p:dataTable>
+
+
+
+				<p:dialog header="Chauffeur" widgetVar="dlg1" resizable="false" modal="true">
+
+					<h:panelGrid columns="2" id="panel">
+					<h:outputText value="Matricule :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.matricule}"
+							style="width:180px" required="true" placeholder="Matricule"
+							disabled="#{chauffeurBean.btnEdit}"
+							requiredMessage="Matricule obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+						</p:inputText>
+						
+						<h:outputText value="Nom :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.nom}"
+							style="width:180px" required="true" placeholder="Nom"
+							requiredMessage="Nom obligatoire">
+							<p:keyFilter regEx="/[a-z_]/i" />
+						</p:inputText>
+
+						<h:outputText value="Prénom :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.prenom}"
+							style="width:180px" required="true" placeholder="Prénom"
+							requiredMessage="Prénom obligatoire">
+							<p:keyFilter regEx="/[a-z_]/i" />
+						</p:inputText>
+
+						<h:outputText value="CIN :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.cin}"
+							style="width:180px" required="true" placeholder="CIN"
+							requiredMessage="Cin obligatoire" maxlength="8">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+						<h:outputText value="E-mail :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.email}"
+							style="width:180px" required="true" placeholder="E-mail"
+							requiredMessage="Email obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
+						</p:inputText>
+
+
+						<h:outputText value="Adresse :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.adresse}"
+							style="width:180px" required="true" placeholder="Adresse"
+							requiredMessage="Adresse obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_\.]/i" />
+						</p:inputText>
+
+
+						<h:outputText value="Téléphone :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.tel}"
+							style="width:180px" required="true" placeholder="Téléphone"
+							requiredMessage="Téléphone obligatoire" maxlength="8">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+						<p:commandLink title="Ajouter" styleClass="btn btn-primary btn-lg"
+							style="color:white" action="#{chauffeurBean.ajouter()}"
+							update="tab" rendered="#{chauffeurBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+
+						<p:commandLink title="Modifier"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{chauffeurBean.modifier()}" update="tab"
+							rendered="#{chauffeurBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+
+					</h:panelGrid>
+
+
+				</p:dialog>
+
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" />
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+
+		</body>
+
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+			</script>
+	</ui:define>
+</ui:composition>
+</html>

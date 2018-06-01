@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<ui:composition template="../facelets/Template.xhtml">
+	<ui:define name="title">
+		<h2>Gestion des utilsateurs</h2>
+
+	</ui:define>
+	<ui:define name="content">
+		<body>
+			<h:form id="f1">
+				<p:dataTable id="tab" value="#{usersBean.list}" var="users"
+					emptyMessage="Aucun enregistrement trouvé." paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+					<f:facet name="header">
+					Utilisateurs
+						<p:commandLink action="#{usersBean.clickAdd()}"
+							styleClass="btn btn-round btn-success" update=":f1:panel"
+							onclick="PF('dlg1').show(); #{usersBean.clickAdd()}"
+							process="@this" style="float:right;color:white">
+							<i class="fa fa-plus"></i>
+							Ajouter
+						</p:commandLink>
+						<br />
+						<br />
+					</f:facet>
+					<p:column style="width:30px">
+						<p:rowToggler />
+					</p:column>
+
+					<p:column headerText="Matricule">
+						<h:outputText value="#{users.employee.matricule}" />
+					</p:column>
+
+					<p:column headerText="CIN">
+						<h:outputText value="#{users.employee.cin}" />
+					</p:column>
+
+					<p:column headerText="Nom">
+						<h:outputText value="#{users.employee.nom}" />
+					</p:column>
+
+					<p:column headerText="Prénom">
+						<h:outputText value="#{users.employee.prenom}" />
+					</p:column>
+
+					<p:column headerText="Rôle">
+						<h:outputText value="#{users.role}" />
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								<div align="left">
+									<h:outputText title="Infos" value="Informations :" />
+								</div>
+							</f:facet>
+
+
+							<h:outputText value="E-mail:" />
+							<h:outputText value="#{users.employee.email}" />
+
+							<h:outputText value="Adresse:" />
+							<h:outputText value="#{users.employee.adresse} " />
+
+							<h:outputText value="Tel:" />
+							<h:outputText value="#{users.employee.tel}" />
+
+							<h:outputText value="Nome d'utilisateur:" />
+							<h:outputText value="#{users.login}" />
+
+							<h:outputText value="Mot de passe:" />
+							<h:outputText value="#{users.password}" />
+
+						</p:panelGrid>
+					</p:rowExpansion>
+
+					<p:column headerText="Action">
+
+						<p:commandLink title="Supprimer"
+							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
+							action="#{usersBean.supprimer()}" update="tab" process="@this">
+							<f:setPropertyActionListener value="#{users}"
+								target="#{usersBean.user}" />
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de supprimer cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-trash"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Editer" action="#{usersBean.clickEdit()}"
+							style="color:white" styleClass="btn btn-round btn-warning btn-lg"
+							update=":f1:panel" onclick="PF('dlg1').show();" process="@this">
+							<f:setPropertyActionListener value="#{users}"
+								target="#{usersBean.user}" />
+							<i class="fa fa-edit"></i>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<p:dialog header="Utilisateur" widgetVar="dlg1" resizable="false" modal="true">
+					<h:panelGrid columns="2" id="panel">
+
+						<h:outputText value="Matricule :" />
+						<p:inputText value="#{usersBean.user.employee.matricule}"
+							style="width:180px" required="true" placeholder="Matricule"
+							requiredMessage="Matricule obligatoire" maxlength="8"
+							disabled="#{usersBean.btnEdit}">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+						</p:inputText>
+
+						<h:outputText value="CIN :" />
+						<p:inputText value="#{usersBean.user.employee.cin}"
+							style="width:180px" required="true" placeholder="Carte d'identité nationale"
+							requiredMessage="CIN obligatoire" maxlength="8">
+							<p:keyFilter regEx="/[\d\-]/" />
+						</p:inputText>
+
+						<h:outputText value="Nom :" />
+						<p:inputText value="#{usersBean.user.employee.nom}"
+							style="width:180px" required="true" placeholder="Nom"
+							requiredMessage="Nom obligatoire">
+							<p:keyFilter regEx="/[a-z_]/i" />
+						</p:inputText>
+
+						<h:outputText value="Prénom :" />
+						<p:inputText value="#{usersBean.user.employee.prenom}"
+							style="width:180px" required="true" placeholder="Prénom"
+							requiredMessage="Prénom obligatoire">
+							<p:keyFilter regEx="/[a-z_]/i" />
+						</p:inputText>
+
+						<h:outputText value="E-Mail :" />
+						<p:inputText value="#{usersBean.user.employee.email}"
+							style="width:180px" required="true" placeholder="E-Mail"
+							requiredMessage="E-Mail obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
+							</p:inputText>
+
+						<h:outputText value="Adresse :" />
+						<p:inputText value="#{usersBean.user.employee.adresse}"
+							style="width:180px" required="true" placeholder="Adresse"
+							requiredMessage="Adresse obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_\.]/i" />
+						</p:inputText>
+
+
+						<h:outputText value="Téléphone :" />
+						<p:inputText value="#{usersBean.user.employee.tel}"
+							style="width:180px" required="true" maxlength="8" placeholder="Téléphone"
+							requiredMessage="Numéro de téléphone obligatoire">
+							<p:keyFilter regEx="/[\d]/" />
+						</p:inputText>
+
+						<h:outputText value="Nom d'utilisateur :" />
+						<p:inputText value="#{usersBean.user.login}" style="width:180px" placeholder="Identifiant"
+							required="true" requiredMessage="Nom d'utilisateur obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+						</p:inputText>
+
+						<h:outputText value="Mot de passe :" />
+						<p:inputText value="#{usersBean.user.password}"
+							style="width:180px" required="true" placeholder="Mot de passe"
+							requiredMessage="Mot de passe obligatoire" minlength="8">
+						</p:inputText>
+
+						<h:outputText value="Rôle :" />
+						<p:selectOneRadio value="#{usersBean.user.role}" required="true"
+							requiredMessage="Rôle obligatoire">
+							<f:selectItem itemLabel="Administrateur"
+								itemValue="Administrateur" />
+							<f:selectItem itemLabel="Personelle" itemValue="Personelle" />
+						</p:selectOneRadio>
+				
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
+							style="color:white" action="#{usersBean.ajouter()}" update="tab"
+							rendered="#{usersBean.btnAdd}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink title="Modifier"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{usersBean.modifier()}" update="tab"
+							rendered="#{usersBean.btnEdit}"
+							oncomplete="handleAddRequest(xhr, status,args)">
+							<p:confirm header="Confirmation"
+								message="Vous etes sur de modifier cet enregistrement?"
+								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+							<i class="fa fa-close"></i>
+						</p:commandLink>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:growl id="growl" showDetail="true" sticky="true"
+					autoUpdate="true" life="2000" />
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</h:form>
+		</body>
+		<script type="text/javascript">
+    			function handleAddRequest(xhr, status, args) {
+        			if(args.validationFailed || !args.added) {
+            			PF('dlg1').jq.effect("shake", {times:5}, 100);
+        			}
+        			else {
+            			PF('dlg1').hide();
+        			}
+    			}
+			</script>
+	</ui:define>
+</ui:composition>
+</html>
