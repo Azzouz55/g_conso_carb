@@ -16,7 +16,7 @@
 </h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
-		<h2>Gestion des Départements (<h:outputText value="#{departementBean.ville.libelle}" />)</h2>
+		<h2>Gestion des Départements (<h:outputText value="#{departementBean.ville.libelle}" style="color:black"/>)</h2>
 	</ui:define>
 	<ui:define name="content">
 		<body>
@@ -27,7 +27,7 @@
 					rowsPerPageTemplate="5,10"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Départements
+					Départements de <h:outputText value="#{departementBean.ville.libelle}" style="color:black"/>
 						<p:commandLink styleClass="btn btn-round btn-success" style="float:left;color:white"
 							action="Ville" process="@this">
 							<i class="fa fa-arrow-left"></i>

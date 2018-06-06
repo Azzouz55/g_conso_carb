@@ -1,18 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
-		<h1>Bienvenue</h1>
+	Acceuil
 	</ui:define>
 	<ui:define name="content">
 		<body>
+			<h:form id="f1">
+				<p:panelGrid columns="4">
+					<h:outputText value="Critère" />
+					<p:selectOneMenu value="#{chartBean.critere}">
+						<f:selectItem noSelectionOption="true" itemLabel="Select critére"
+							itemDisabled="true" />
+						<f:selectItem itemLabel="Mois" itemValue="1" />
+						<f:selectItem itemLabel="Trimestre" itemValue="2" />
+						<f:selectItem itemLabel="Année" itemValue="3" />
+						<p:ajax event="change"
+							listener="#{chartBean.findValeurByCritere()}"
+							update=":f1:selectValeur" />
+					</p:selectOneMenu>
 
-<!--     <p:chart type="bar" model="#{chartBean.init()}"  /> -->
-   </body>
+					<h:outputText value="Valeur" />
+					<p:selectOneMenu value="#{chartBean.valeur}" id="selectValeur">
+						<f:selectItem noSelectionOption="true" itemLabel="Select valeur"
+							itemDisabled="true" />
+						<f:selectItems value="#{chartBean.list}" var="valeur"
+							itemLabel="#{valeur.toString()}" itemValue="#{valeur.toString()}" />
+						<p:ajax event="change" listener="#{chartBean.afficher()}"
+							update=":f1:chart" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+				<p:chart id="chart" type="bar" model="#{chartBean.init()}"
+					style="height:500px" />
+
+			</h:form>
+		</body>
 	</ui:define>
 </ui:composition>
 </html>

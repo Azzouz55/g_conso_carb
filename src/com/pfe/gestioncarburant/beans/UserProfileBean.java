@@ -39,7 +39,7 @@ public class UserProfileBean {
 
 	public String displayUserInfo() {
 		init();
-		return user.getEmployee().getNom() + " " + user.getEmployee().getPrenom();
+		return user.getEmployee().getNom() + ", " + user.getEmployee().getPrenom();
 	}
 
 	public UserProfileService getProfileUserService() {

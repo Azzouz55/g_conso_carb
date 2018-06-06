@@ -6,15 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfe.gestioncarburant.dao.MissionDao;
+import com.pfe.gestioncarburant.dao.VoitureDao;
 import com.pfe.gestioncarburant.entities.Coordonnee;
 import com.pfe.gestioncarburant.entities.Mission;
 import com.pfe.gestioncarburant.entities.Ville;
+import com.pfe.gestioncarburant.entities.Voiture;
 import com.pfe.gestioncarburant.services.MissionService;
 
 @Service
 public class MissionServiceImp implements MissionService {
 	@Autowired
 	private MissionDao missionDao;
+	@Autowired
+	private VoitureDao voitureDao;
 
 	@Override
 	public double distance(Ville ville1, Ville ville2) {
@@ -46,6 +50,7 @@ public class MissionServiceImp implements MissionService {
 	@Override
 	public String[] update(Mission mission) throws Exception {
 		String[] result = new String[2];
+		Voiture voiture = new Voiture();
 		// TODO Validation des données entrées
 		if (mission.getOdometreRetour() != null) {
 			int distanceParcourue = mission.getOdometreRetour() - mission.getOdometreSortie();
@@ -60,6 +65,9 @@ public class MissionServiceImp implements MissionService {
 		result[0] = "1";
 		result[1] = "Mission modifier avec succée";
 		missionDao.saveOrUpdate(mission);
+		voiture = mission.getVoiture();
+		voiture.setOdometre(mission.getOdometreRetour());
+		voitureDao.saveOrUpdate(voiture);
 		return result;
 	}
 

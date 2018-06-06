@@ -51,11 +51,11 @@
 
 					<p:column headerText="Action">
 
-						<p:commandLink title="Supprimer"
+						<p:commandLink title="Supprimer" rendered="#{request.isUserInRole('Administrateur')}"
 							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
 							action="#{entreBonBean.supprimer()}" update="tab" process="@this">
 							<f:setPropertyActionListener value="#{entreBon}"
-								target="#{entreBonBean.entreBon}" />
+								target="#{entreBonBean.entreBon}"   />
 							<p:confirm header="Confirmation"
 								message="Vous etes sur de supprimer cet enregistrement?"
 								icon="ui-icon-alert" />

@@ -10,63 +10,61 @@
 
 		<div class="col-md-3 left_col">
 			<div class="left_col scroll-view">
-				<div class="navbar nav_title" style="border: 0;">
-					<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
-						<span>ECOFuel</span></a>
+				<div class="navbar nav_title" style="border: 0">
+					<a href="Index.xhtml" class="site_title"
+						style="height: 64px; margin-top: 10px; margin-left: -15px"> <img
+						src="../assets/images/eco-fuel64.png" />
+					</a>
 				</div>
 				<div class="clearfix"></div>
 				<!-- menu profile quick info -->
-				<div class="profile clearfix">
-					<!-- 					<div class="profile_pic"> -->
-					<!-- 						<img src="images/img.jpg" alt="..." class="img-circle profile_img" /> -->
-					<!-- 					</div> -->
-					<div class="profile_info">
-						<span>Bienvenue,</span>
-						<h2>
-							<h:outputText value="#{userProfileBean.displayUserInfo()} " />
-						</h2>
-					</div>
+				<div class="profile clearfix" style="margin-bottom: -20px">
 					<div class="clearfix"></div>
+					<div class="profile_info">
+						<span style="size: 20px">Bienvenue,<br /> <p:commandLink
+								onclick="PF('dlg').show();" style="color:white">
+								<h:outputText value="#{userProfileBean.displayUserInfo()}" />
+							</p:commandLink>
+						</span>
+					</div>
 				</div>
 				<!-- /menu profile quick info -->
-
-				<br />
 				<!-- sidebar menu -->
-				<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
+				<div id="sidebar-menu" class="main_menu_side hidden-print main_menu"
+					style="margin-top: 20px">
 					<div class="menu_section active">
-						<h3>Géstion</h3>
 						<ul class="nav side-menu">
-
+							<li><h:commandLink action="Index">
+									<i class="fa fa-home"></i> Accueil</h:commandLink></li>
+							<h3>Géstion</h3>
+							<li><h:commandLink action="Mission">
+									<i class="fa fa-crosshairs"></i> Mission</h:commandLink></li>
 							<li><h:commandLink action="Cadre">
 									<i class="fa fa-users"></i> Cadres</h:commandLink></li>
-							<li><h:commandLink action="Chauffeur">
-									<i class="fa fa-cab"></i> Chauffeurs</h:commandLink></li>
 							<li><h:commandLink action="EntreBon">
 									<i class="fa fa-exchange"></i> Entrées Bon</h:commandLink></li>
+							<li><h:commandLink action="Chauffeur">
+									<i class="fa fa-cab"></i> Chauffeurs</h:commandLink></li>
 							<li><h:commandLink action="Voiture">
 									<i class="fa fa-car"></i> Voitures</h:commandLink></li>
-							<li><h:commandLink action="Mission">
-									<i class="fa fa-users"></i> Mission</h:commandLink></li>
-
 
 							<ui:fragment rendered="#{request.isUserInRole('Administrateur')}">
-
 								<li><a><i class="fa fa-cog"></i> Paramétrage <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="">
+										<li><h:commandLink action="Users">Utilisateur</h:commandLink></li>
+										<li><h:commandLink action="Categorie">Catégories des cadre</h:commandLink></li>
+										<li><h:commandLink action="BonCarburant">Bons de carburants</h:commandLink></li>
 										<li><h:commandLink action="Marque"> Marques</h:commandLink></li>
 										<li><h:commandLink action="Ville"> Villes</h:commandLink></li>
-										<li><h:commandLink action="BonCarburant">Bons de carburants</h:commandLink></li>
 										<li><h:commandLink action="TypeCarburant"> Types de carburant</h:commandLink></li>
-										<li><h:commandLink action="Categorie">Catégories des cadre</h:commandLink></li>
-										<li><h:commandLink action="Users">Utilisateur</h:commandLink></li>
+
 									</ul></li>
 							</ui:fragment>
 						</ul>
 					</div>
 				</div>
-<!-- 				/sidebar menu -->
+				<!-- 				/sidebar menu -->
 
 				<div class="sidebar-footer hidden-small">
 					<a data-toggle="tooltip" data-placement="top" title=""
@@ -78,20 +76,68 @@
 					</a> <a data-toggle="tooltip" data-placement="top" title=""
 						data-original-title="Verrou"> <span
 						class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-					</a>
-						<a data-toggle="tooltip" data-placement="top" title=""
-							href="javascript:{}"
-							onclick="document.getElementById('f1').submit();"
-							data-original-title="Déconnecté"> <span
-							class="glyphicon glyphicon-off" aria-hidden="true"> </span></a>		
+					</a> <a data-toggle="tooltip" data-placement="top" title=""
+						href="javascript:{}"
+						onclick="document.getElementById('f1').submit();"
+						data-original-title="Déconnecté"> <span
+						class="glyphicon glyphicon-off" aria-hidden="true"> </span></a>
 				</div>
-<!-- 				/menu footer buttons -->
+				<!-- 				/menu footer buttons -->
 			</div>
 		</div>
+		<p:dialog header="Profile : #{userProfileBean.user.matricule}"
+			widgetVar="dlg" resizable="false" width="400" modal="true">
+			<p:panel id="basic"
+				header="#{userProfileBean.user.employee.nom} #{userProfileBean.user.employee.prenom}"
+				width="400">
+				<div class="ui-g">
+					<div class="ui-g-5">
+						<h:outputText value="N° CIN:" />
+					</div>
+					<div class="ui-g-5">
+						<h:outputText value="#{userProfileBean.user.employee.cin}" />
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-5">
+						<h:outputText value="Adresse:" />
+					</div>
+					<div class="ui-g-5">
+						<h:outputText value="#{userProfileBean.user.employee.adresse}" />
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-5">
+						<h:outputText value="N° Téléphone:" />
+					</div>
+					<div class="ui-g-5">
+						<h:outputText value="#{userProfileBean.user.employee.tel}" />
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-5">
+						<h:outputText value="E-Mail:" />
+					</div>
+					<div class="ui-g-5">
+						<h:outputText value="#{userProfileBean.user.employee.email}" />
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-5">
+						<h:outputText value="Rôle:" />
+					</div>
+					<div class="ui-g-5">
+						<h:outputText value="#{userProfileBean.user.role}" />
+					</div>
+				</div>
+			</p:panel>
+
+		</p:dialog>
 	</h:form>
+
 </body>
 
-			<script type="text/javascript">
+<script type="text/javascript">
     			function goFull() {
     				 var elem = document.documentElement;
     				    if (elem.requestFullscreen) {

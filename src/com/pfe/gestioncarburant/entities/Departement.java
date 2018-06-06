@@ -96,7 +96,7 @@ public class Departement implements java.io.Serializable {
 		this.missionsForIdDepartementDest = missionsForIdDepartementDest;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "departement")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departement")
 	public Set<Cadre> getCadres() {
 		return this.cadres;
 	}

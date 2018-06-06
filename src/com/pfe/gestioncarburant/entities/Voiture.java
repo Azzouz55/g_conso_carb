@@ -27,6 +27,7 @@ public class Voiture implements java.io.Serializable {
 	private int puissance;
 	private String transmission;
 	private String typeAttribution;
+	private int odometre;
 	private Set<Mission> missions = new HashSet<Mission>(0);
 	private Set<Affectation> affectations = new HashSet<Affectation>(0);
 
@@ -123,6 +124,15 @@ public class Voiture implements java.io.Serializable {
 
 	public void setTypeAttribution(String typeAttribution) {
 		this.typeAttribution = typeAttribution;
+	}
+
+	@Column(name = "odometre", nullable = false, length = 6)
+	public int getOdometre() {
+		return odometre;
+	}
+
+	public void setOdometre(int odometre) {
+		this.odometre = odometre;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "voiture")

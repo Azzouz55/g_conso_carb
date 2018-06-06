@@ -16,7 +16,7 @@
 </h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
-		<h2>Bons de carburant de '<h:outputText value="#{bonCadreBean.cadre.employee.nom} #{bonCadreBean.cadre.employee.prenom}" />'</h2>
+		<h2>Bons de carburant de '<h:outputText value="#{bonCadreBean.cadre.employee.nom} #{bonCadreBean.cadre.employee.prenom}" style="color:black" />'</h2>
 	</ui:define>
 	<ui:define name="content">
 		<body>
@@ -29,7 +29,7 @@
 					rowsPerPageTemplate="10,20"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Bons de carburant affectés
+					Bons de carburant affectés à <h:outputText value="#{bonCadreBean.cadre.employee.nom} #{bonCadreBean.cadre.employee.prenom}" />
 						<p:commandLink styleClass="btn btn-round btn-success" style="float:left;color:white"
 							action="Cadre" process="@this">
 							<i class="fa fa-arrow-left"></i>
@@ -81,6 +81,13 @@
 							<i class="fa fa-edit"></i>
 						</p:commandLink>
 					</p:column>
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="1" style="text-align:right"
+								footerText="Totals litres:" />
+							<p:column footerText="#{bonCadreBean.totalLitre}" />
+						</p:row>
+					</p:columnGroup>
 				</p:dataTable>
 
 				<p:dialog widgetVar="dlg1" resizable="false"
@@ -91,16 +98,16 @@
 						<h:outputText value="Date affectation" />
 						<p:calendar value="#{bonCadreBean.id.dateAffectation}"
 							pattern="dd/MM/yyyy" mindate="Date.now()"
-							rendered="#{bonCadreBean.btnAdd}" style="width:180px">
+							rendered="#{bonCadreBean.btnAdd}" disabled="#{bonCadreBean.btnEdit}" style="width:180px">
 						</p:calendar>
-						<p:inputText value="#{bonCadreBean.id.dateAffectation}"
+						<p:inputText value="#{bonCadreBean.bonCadre.id.dateAffectation}"
 							pattern="dd/MM/yyyy" rendered="#{bonCadreBean.btnEdit}"
-							style="width:180px">
+							style="width:180px" disabled="#{bonCadreBean.btnEdit}">
 						</p:inputText>
 
 						<h:outputText value="Bon Carburant" />
 						<p:selectOneMenu rendered="#{bonCadreBean.btnAdd}"
-							value="#{bonCadreBean.bonCarburant.id}" style="width:180px">
+							value="#{bonCadreBean.id.idBonCarburant}" style="width:180px">
 							<f:selectItem itemLabel="Sélectionnez une option" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{bonCadreBean.listBonCarburant}"

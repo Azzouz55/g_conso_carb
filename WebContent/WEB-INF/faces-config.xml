@@ -1,102 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
- <navigation-rule>
-  <from-view-id>*</from-view-id>
-  <navigation-case>
-   <from-outcome>Cadre</from-outcome>
-   <to-view-id>/views/Cadre.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Chauffeur</from-outcome>
-   <to-view-id>/views/Chauffeur.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>EntreBon</from-outcome>
-   <to-view-id>/views/EntreBon.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Voiture</from-outcome>
-   <to-view-id>/views/Voiture.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Mission</from-outcome>
-   <to-view-id>/views/Mission.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Marque</from-outcome>
-   <to-view-id>/admin/Marque.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Ville</from-outcome>
-   <to-view-id>/admin/Ville.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>BonCarburant</from-outcome>
-   <to-view-id>/admin/BonCarburant.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>TypeCarburant</from-outcome>
-   <to-view-id>/admin/TypeCarburant.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Categorie</from-outcome>
-   <to-view-id>/admin/Categorie.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>Users</from-outcome>
-   <to-view-id>/admin/Users.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/views/Cadre.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>AffectationVoitureCadre</from-outcome>
-   <to-view-id>/views/AffectationVoitureCadre.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>BonCadre</from-outcome>
-   <to-view-id>/views/BonCadre.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/views/Mission.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>BonMission</from-outcome>
-   <to-view-id>/views/BonMission.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/admin/Marque.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>Model</from-outcome>
-   <to-view-id>/admin/Model.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
- </navigation-rule>
- <navigation-rule>
-  <from-view-id>/admin/Ville.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>Departement</from-outcome>
-   <to-view-id>/admin/Departement.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
- </navigation-rule>
- <application>
-  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
- </application>
+<faces-config version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>Cadre</from-outcome>
+			<to-view-id>/views/Cadre.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Chauffeur</from-outcome>
+			<to-view-id>/views/Chauffeur.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>EntreBon</from-outcome>
+			<to-view-id>/views/EntreBon.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Voiture</from-outcome>
+			<to-view-id>/views/Voiture.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Mission</from-outcome>
+			<to-view-id>/views/Mission.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Marque</from-outcome>
+			<to-view-id>/admin/Marque.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Ville</from-outcome>
+			<to-view-id>/admin/Ville.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>BonCarburant</from-outcome>
+			<to-view-id>/admin/BonCarburant.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>TypeCarburant</from-outcome>
+			<to-view-id>/admin/TypeCarburant.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Categorie</from-outcome>
+			<to-view-id>/admin/Categorie.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Users</from-outcome>
+			<to-view-id>/admin/Users.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Index</from-outcome>
+			<to-view-id>/views/Index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/views/Cadre.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>AffectationVoitureCadre</from-outcome>
+			<to-view-id>/views/AffectationVoitureCadre.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>BonCadre</from-outcome>
+			<to-view-id>/views/BonCadre.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/views/Mission.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>BonMission</from-outcome>
+			<to-view-id>/views/BonMission.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/admin/Marque.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Model</from-outcome>
+			<to-view-id>/admin/Model.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/admin/Ville.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Departement</from-outcome>
+			<to-view-id>/admin/Departement.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+
 </faces-config>

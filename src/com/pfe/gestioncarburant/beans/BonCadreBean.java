@@ -2,11 +2,12 @@ package com.pfe.gestioncarburant.beans;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -23,16 +24,19 @@ import com.pfe.gestioncarburant.entities.Voiture;
 import com.pfe.gestioncarburant.services.AffectationVoitureService;
 import com.pfe.gestioncarburant.services.BonCadreService;
 import com.pfe.gestioncarburant.services.BonCarburantService;
+import com.pfe.gestioncarburant.services.CadreService;
 import com.pfe.gestioncarburant.services.VoitureService;
 
 @Component
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class BonCadreBean {
 	@Autowired
 	private BonCarburantService bonCarburantService;
 	@Autowired
 	private BonCadreService bonCadreService;
+	@Autowired
+	private CadreService cadreService;
 	@Autowired
 	private VoitureService voitureService;
 	@Autowired
@@ -42,11 +46,29 @@ public class BonCadreBean {
 	private BonCadreId id = new BonCadreId();
 	private BonCarburant bonCarburant = new BonCarburant();
 	private Cadre cadre;
+	private Calendar date = Calendar.getInstance();
 	private Voiture voiture = new Voiture();
 	private Affectation affectation;
 	private List<BonCadre> list = new ArrayList<>();
 	private List<BonCarburant> listBonCarburant = new ArrayList<>();
 	private boolean btnAdd, btnEdit, disabled;
+
+	public void redirect() {
+		try {
+			affectation = (Affectation) affectationVoitureService.findAffectationByCadre(cadre, null).get(0);
+			voiture = (Voiture) voitureService.findVoitureByCadre(affectation).get(0);
+			FacesContext context = FacesContext.getCurrentInstance();
+			if (voiture != null) {
+				ExternalContext externalContext = context.getExternalContext();
+				externalContext.redirect(externalContext.getRequestContextPath() + "/faces/views/BonCadre.xhtml");
+			}
+
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte",
+					"S'il vous plait, affectez une voiture pour le cadre n°:" + cadre.getMatricule()));
+			e.printStackTrace();
+		}
+	}
 
 	public void clickAdd() {
 		bonCadre = new BonCadre();
@@ -68,10 +90,12 @@ public class BonCadreBean {
 	}
 
 	public void ajouter() {
-		id.setMatriculeCadre(cadre.getMatricule());
-		id.setIdBonCarburant(bonCarburant.getId());
-		bonCadre.setId(id);
 		try {
+			Cadre cadre2 = cadreService.getCadre(cadre);
+			bonCadre.setCadre(cadre2);
+
+			id.setMatriculeCadre(cadre.getMatricule());
+			bonCadre.setId(id);
 			String[] test = bonCadreService.save(bonCadre);
 			if (test[0] == "1") {
 				FacesContext.getCurrentInstance().addMessage(null,
@@ -83,6 +107,7 @@ public class BonCadreBean {
 				RequestContext.getCurrentInstance().addCallbackParam("added", false);
 
 			}
+
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention", "Erreur d'affectation"));
@@ -92,9 +117,6 @@ public class BonCadreBean {
 	}
 
 	public void modifier() {
-		id.setMatriculeCadre(cadre.getMatricule());
-		id.setIdBonCarburant(bonCarburant.getId());
-		bonCadre.setId(id);
 		try {
 			String test[] = bonCadreService.update(bonCadre);
 			if (test[0] == "1") {
@@ -129,22 +151,6 @@ public class BonCadreBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention", "Erreur de suppression"));
 			e.printStackTrace();
 		}
-	}
-
-	public BonCarburantService getBonCarburantService() {
-		return bonCarburantService;
-	}
-
-	public void setBonCarburantService(BonCarburantService bonCarburantService) {
-		this.bonCarburantService = bonCarburantService;
-	}
-
-	public BonCadreService getBonCadreService() {
-		return bonCadreService;
-	}
-
-	public void setBonCadreService(BonCadreService bonCadreService) {
-		this.bonCadreService = bonCadreService;
 	}
 
 	public BonCadre getBonCadre() {
@@ -237,6 +243,38 @@ public class BonCadreBean {
 
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+	public int getTotalLitre() {
+		int total = 9999;
+		setDisabled(false);
+		try {
+			total = bonCadreService.getTotalLitre(cadre);
+			setDisabled(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return total;
+	}
+
+	public int getTotalLitreByMonth() {
+		int total = 9999;
+		try {
+			total = bonCadreService.getTotalLitreByDate(cadre, date);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return total;
 	}
 
 	// Prevent direct access to AffectationVoitureCadre.xhtml

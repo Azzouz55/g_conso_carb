@@ -1,6 +1,7 @@
 package com.pfe.gestioncarburant.entities;
-// Generated May 16, 2018 6:55:08 PM by Hibernate Tools 5.1.7.Final
+// Generated Jun 3, 2018 4:40:02 AM by Hibernate Tools 5.1.7.Final
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -12,13 +13,15 @@ public class BonMissionId implements java.io.Serializable {
 
 	private int idMission;
 	private int idBonCarburant;
+	private Date dateAffectation;
 
 	public BonMissionId() {
 	}
 
-	public BonMissionId(int idMission, int idBonCarburant) {
+	public BonMissionId(int idMission, int idBonCarburant, Date dateAffectation) {
 		this.idMission = idMission;
 		this.idBonCarburant = idBonCarburant;
+		this.dateAffectation = dateAffectation;
 	}
 
 	@Column(name = "id_mission", nullable = false)
@@ -39,6 +42,15 @@ public class BonMissionId implements java.io.Serializable {
 		this.idBonCarburant = idBonCarburant;
 	}
 
+	@Column(name = "date_affectation", nullable = false, length = 10)
+	public Date getDateAffectation() {
+		return this.dateAffectation;
+	}
+
+	public void setDateAffectation(Date dateAffectation) {
+		this.dateAffectation = dateAffectation;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -49,7 +61,10 @@ public class BonMissionId implements java.io.Serializable {
 		BonMissionId castOther = (BonMissionId) other;
 
 		return (this.getIdMission() == castOther.getIdMission())
-				&& (this.getIdBonCarburant() == castOther.getIdBonCarburant());
+				&& (this.getIdBonCarburant() == castOther.getIdBonCarburant())
+				&& ((this.getDateAffectation() == castOther.getDateAffectation())
+						|| (this.getDateAffectation() != null && castOther.getDateAffectation() != null
+								&& this.getDateAffectation().equals(castOther.getDateAffectation())));
 	}
 
 	public int hashCode() {
@@ -57,6 +72,7 @@ public class BonMissionId implements java.io.Serializable {
 
 		result = 37 * result + this.getIdMission();
 		result = 37 * result + this.getIdBonCarburant();
+		result = 37 * result + (getDateAffectation() == null ? 0 : this.getDateAffectation().hashCode());
 		return result;
 	}
 

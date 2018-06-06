@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
@@ -18,7 +18,7 @@ import com.pfe.gestioncarburant.services.BonCarburantService;
 
 @Component
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class BonCarburantBean {
 	@Autowired
 	private BonCarburantService bonCarburantService;

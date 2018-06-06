@@ -58,13 +58,17 @@
 						<h:outputText value="#{voiture.reservoir} L" />
 					</p:column>
 
+					<p:column headerText="Odométre Courant">
+						<h:outputText value="#{voiture.odometre}" />
+					</p:column>
+
 					<p:column headerText="Type Attribution">
 						<h:outputText value="#{voiture.typeAttribution}" />
 					</p:column>
 
 					<p:column headerText="Action" style="width:180px">
 						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
-							title="Supprimer" style="color:white"
+							title="Supprimer" style="color:white" rendered="#{request.isUserInRole('Administrateur')}"
 							action="#{voitureBean.supprimer()}" update="tab" process="@this">
 							<f:setPropertyActionListener value="#{voiture}"
 								target="#{voitureBean.voiture}" />
@@ -74,9 +78,10 @@
 							<i class="fa fa-trash"></i>
 						</p:commandLink>
 
-						<p:commandLink styleClass="btn btn-round btn-warning btn-lg" title="Editer"
-							style="color:white" action="#{voitureBean.clickEdit()}"
-							update=":f1:panel" onclick="PF('dlg1').show();" process="@this">
+						<p:commandLink styleClass="btn btn-round btn-warning btn-lg"
+							title="Editer" style="color:white"
+							action="#{voitureBean.clickEdit()}" update=":f1:panel"
+							onclick="PF('dlg1').show();" process="@this">
 							<f:setPropertyActionListener value="#{voiture}"
 								target="#{voitureBean.voiture}" />
 							<i class="fa fa-edit"></i>
@@ -125,8 +130,13 @@
 
 						<h:outputText value="Puissance" />
 						<p:spinner value="#{voitureBean.voiture.puissance}" min="1"
-							max="20" size="2" required="true"
+							max="20" size="6" required="true"
 							requiredMessage="Puissance obligatoire" />
+
+						<h:outputText value="Odométre" />
+						<p:spinner value="#{voitureBean.voiture.odometre}" min="1"
+							max="999999" size="6" required="true"
+							requiredMessage="Odométre obligatoire" />
 
 						<h:outputText value="TypeCarburant" />
 						<p:selectOneMenu value="#{voitureBean.typeCarburant.id}"
@@ -140,15 +150,9 @@
 						</p:selectOneMenu>
 
 						<h:outputText value="Réservoir" />
-						<p:inputText value="#{voitureBean.voiture.reservoir}"
-							style="width:200px" required="true"
-							requiredMessage="Réservoir obligatoire">
-							<p:keyFilter regEx="/[\d\-]/"></p:keyFilter>
-						</p:inputText>
-						
-						<p:spinner value="#{voitureBean.voiture.puissance}" min="1"
+						<p:spinner value="#{voitureBean.voiture.reservoir}" min="1"
 							max="70" size="2" required="true"
-							requiredMessage="Puissance obligatoire" />
+							requiredMessage="Réservoir obligatoire" />
 
 						<h:outputText value="Type Attribution" />
 						<p:selectOneRadio value="#{voitureBean.voiture.typeAttribution}"
@@ -157,9 +161,10 @@
 							<f:selectItem itemLabel="Service" itemValue="Service" />
 						</p:selectOneRadio>
 
-						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
-							style="color:white" action="#{voitureBean.ajouter()}"
-							update="tab" rendered="#{voitureBean.btnAdd}"
+						<p:commandLink title="Ajouter"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{voitureBean.ajouter()}" update="tab"
+							rendered="#{voitureBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
 							<i class="fa fa-check"></i>
 						</p:commandLink>
@@ -176,8 +181,9 @@
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 
-						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
-							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
+							title="Annuler" style="color:white" onclick="PF('dlg1').hide();"
+							process="@this">
 							<i class="fa fa-close"></i>
 						</p:commandLink>
 					</h:panelGrid>

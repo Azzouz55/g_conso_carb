@@ -20,7 +20,7 @@
 
 
 	<ui:define name="title">
-		<h2>Affectation de voiture de '<h:outputText value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}" />'</h2>
+		<h2>Affectation de voiture de '<h:outputText value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}" style="color:black" />'</h2>
 	</ui:define>
 
 	<ui:define name="content">
@@ -32,7 +32,7 @@
 					rowsPerPageTemplate="5,10"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Voitures affectés
+					Voitures affectés à <h:outputText value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}" />
 						<p:commandLink styleClass="btn btn-round btn-success"
 							style="float:left;color:white" action="Cadre" process="@this">
 							<i class="fa fa-arrow-left"></i>

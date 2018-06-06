@@ -63,8 +63,7 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:dialog header="Type Carburant" widgetVar="dlg1" resizable="false" modal="true">
-
+				<p:dialog header="Bon Carburant" widgetVar="dlg1" resizable="false" modal="true">
 					<h:panelGrid columns="2" id="panel">
 						<h:outputText value="Litre" />
 						<p:spinner value="#{bonCarburantBean.bonCarburant.litre}"
@@ -82,7 +81,7 @@
 						</p:selectOneMenu>
 
 						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
-							style="color:white" action="#{bonCarburantBean.ajouter()}"
+							style="color:white" action="#{bonCarburantBean.ajouter()}" rendered="#{bonCarburantBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status, args)">
 							<i class="fa fa-check"></i>
 						</p:commandLink>

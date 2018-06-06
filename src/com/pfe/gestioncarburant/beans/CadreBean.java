@@ -153,6 +153,7 @@ public class CadreBean {
 
 	public List<Departement> getListDepartement() {
 		try {
+			listDepartement = new ArrayList<>();
 			listDepartement = departementService.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();

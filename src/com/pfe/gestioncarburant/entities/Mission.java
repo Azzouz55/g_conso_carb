@@ -105,7 +105,7 @@ public class Mission implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "matricule_chauffeur", nullable = false)
+	@JoinColumn(name = "matricule_chauffeur", nullable = true)
 	public Chauffeur getChauffeur() {
 		return this.chauffeur;
 	}
@@ -135,7 +135,7 @@ public class Mission implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "matricule_voiture", nullable = false)
+	@JoinColumn(name = "matricule_voiture", nullable = true)
 	public Voiture getVoiture() {
 		return this.voiture;
 	}
@@ -193,7 +193,7 @@ public class Mission implements java.io.Serializable {
 
 	@Column(name = "distance_prevue", nullable = false, precision = 22, scale = 0)
 	public double getDistancePrevue() {
-		return this.distancePrevue;
+		return Math.ceil(distancePrevue);
 	}
 
 	public void setDistancePrevue(double distancePrevue) {

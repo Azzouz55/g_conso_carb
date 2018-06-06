@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.pfe.gestioncarburant.dao.BonCarburantDao;
 import com.pfe.gestioncarburant.dao.BonMissionDao;
+import com.pfe.gestioncarburant.dto.MoisDTO;
 import com.pfe.gestioncarburant.entities.BonCarburant;
 import com.pfe.gestioncarburant.entities.BonMission;
 import com.pfe.gestioncarburant.entities.Mission;
+import com.pfe.gestioncarburant.entities.TypeCarburant;
 import com.pfe.gestioncarburant.services.BonMissionService;
 
 @Service
@@ -60,27 +62,23 @@ public class BonMissionServiceImp implements BonMissionService {
 
 	@Override
 	public String[] update(BonMission bonMission) throws Exception {
-		int qte = 0;
 		String[] result = new String[2];
 		BonMission old = (BonMission) bonMissionDao
 				.findByCriteria(BonMission.class, Restrictions.idEq(bonMission.getId())).get(0);
-
+		int qte = 0;
 		qte = old.getQte() - bonMission.getQte();
 		BonCarburant bonCarburant = (BonCarburant) bonCarburantDao
 				.findByCriteria(BonCarburant.class, Restrictions.idEq(bonMission.getId().getIdBonCarburant())).get(0);
 		if (bonCarburant.getQte() < qte) {
 			result[0] = "0";
-			result[1] = "La quantitée à modifier de bon " + bonCarburant.getTypeCarburant().getLibelle() + " - "
-					+ bonCarburant.getLitre() + "L dépasse la quantité en stock!";
+			result[1] = "La quantitée à modifier dépasse la quantité en stock!";
 			return result;
-
 		}
 		bonMissionDao.saveOrUpdate(bonMission);
 		bonCarburant.setQte(bonCarburant.getQte() + qte);
 		bonCarburantDao.saveOrUpdate(bonCarburant);
 		result[0] = "1";
 		result[1] = "Bon de mission modifié avec succée";
-		bonMissionDao.saveOrUpdate(bonMission);
 		return result;
 	}
 
@@ -127,6 +125,21 @@ public class BonMissionServiceImp implements BonMissionService {
 			total = total + nbrLitre;
 		}
 		return total;
+	}
+
+	@Override
+	public MoisDTO findByMonth(BonCarburant bonCarburant) {
+		return bonMissionDao.findByMonth(bonCarburant);
+	}
+
+	@Override
+	public MoisDTO findByYear(TypeCarburant typeCarburant, int annee) {
+		return bonMissionDao.findByYear(typeCarburant, annee);
+	}
+
+	@Override
+	public MoisDTO findByQuarter(BonCarburant bonCarburant) {
+		return bonMissionDao.findByQuarter(bonCarburant);
 	}
 
 }

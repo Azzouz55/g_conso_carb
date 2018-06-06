@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -25,7 +25,7 @@ import com.pfe.gestioncarburant.services.MissionService;
 
 @Component
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class BonMissionBean {
 	@Autowired
 	private BonCarburantService bonCarburantService;

@@ -83,6 +83,13 @@ public class VoitureServiceImp implements VoitureService {
 
 	}
 
+	@Override
+	public Voiture findVoitureByMatricule(String matricule) throws Exception {
+		Criterion crit = Restrictions.eq("matricule", matricule);
+		return (Voiture) voitureDao.findByCriteria(Voiture.class, crit).get(0);
+
+	}
+
 	public VoitureDao getVoitureDao() {
 		return voitureDao;
 	}

@@ -61,7 +61,6 @@ public class MissionBean {
 	public void clickAdd() {
 		mission = new Mission();
 		cadre = new Cadre();
-		voiture = new Voiture();
 		ville = new Ville();
 		villeDest = new Ville();
 		departement = new Departement();
@@ -93,6 +92,16 @@ public class MissionBean {
 		btnEdit = true;
 		disabled = true;
 
+	}
+
+	public void setOdometreSortieValue() {
+		try {
+			voiture = voitureService.findVoitureByMatricule(mission.getVoiture().getMatricule());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mission.setOdometreSortie(voiture.getOdometre());
 	}
 
 	public void findDepartementByCadre() {

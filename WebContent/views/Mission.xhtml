@@ -7,7 +7,7 @@
 
 <h:head>
 
-	
+
 </h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
@@ -21,12 +21,12 @@
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="5,10,15"
 					emptyMessage="Aucun enregistrement trouvé.">
-
 					<f:facet name="header">
 					Missions
-						<p:commandLink action="#{missionBean.clickAdd()}" update=":f1:panel"
-							styleClass="btn btn-round btn-success btn" onclick="PF('dlg1').show();"
-							process="@this" style="float:right;color:white"
+						<p:commandLink action="#{missionBean.clickAdd()}"
+							update=":f1:panel" styleClass="btn btn-round btn-success btn"
+							onclick="PF('dlg1').show();" process="@this"
+							style="float:right;color:white"
 							rendered="#{request.isUserInRole('Administrateur')}">
 							<i class="fa fa-plus"></i>
 										Ajouter
@@ -34,13 +34,14 @@
 						<br />
 						<br />
 					</f:facet>
-					
-					<p:column headerText="Chauffeur">
-						<h:outputText value="#{mission.id}" />
-					</p:column>
+
+
 
 					<p:column style="width:30px">
 						<p:rowToggler />
+					</p:column>
+					<p:column headerText="Numéro">
+						<h:outputText value="#{mission.id}" />
 					</p:column>
 					<p:column headerText="Responsable">
 						<h:outputText value="#{mission.cadre.matricule}" />
@@ -94,7 +95,7 @@
 							<h:outputText value="#{mission.odometreRetour}" />
 
 							<h:outputText value="Distance prévue" />
-							<h:outputText value="#{mission.distancePrevue}" />
+							<h:outputText value="#{mission.distancePrevue} m" />
 
 							<h:outputText value="Distance parcourue" />
 							<h:outputText value="#{mission.distanceParcourue}" />
@@ -105,7 +106,9 @@
 					<p:column headerText="Action" style="width:180px">
 						<p:commandLink title="Supprimer"
 							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
-							action="#{missionBean.supprimer()}" update="tab" rendered="#{request.isUserInRole('Administrateur')}" process="@this">
+							action="#{missionBean.supprimer()}" update="tab"
+							rendered="#{request.isUserInRole('Administrateur')}"
+							process="@this">
 							<f:setPropertyActionListener value="#{mission}"
 								target="#{missionBean.mission}" />
 							<p:confirm header="Confirmation"
@@ -128,20 +131,21 @@
 							process="@this" immediate="true">
 							<f:setPropertyActionListener value="#{mission}"
 								target="#{bonMissionBean.mission}" />
-							<i class="fa fa-car"></i>
+							<i class="fa fa-tint"></i>
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
 
 
-				<p:dialog header="Mission" widgetVar="dlg1" resizable="false" modal="true">
+				<p:dialog header="Mission" widgetVar="dlg1" resizable="false"
+					modal="true">
 
 					<h:panelGrid columns="2" id="panel">
 						<h:outputText value="Cadre" />
 						<p:inputText
 							value="#{missionBean.mission.cadre.matricule} - #{missionBean.mission.cadre.employee.nom}  #{missionBean.mission.cadre.employee.prenom}"
 							style="width:220px" rendered="#{missionBean.btnEdit}"
-							disabled="#{missionBean.btnEdit}" />
+							readonly="#{missionBean.btnEdit}" />
 
 						<p:selectOneMenu value="#{missionBean.cadre.matricule}"
 							style="width:220px" required="true"
@@ -162,8 +166,11 @@
 							<f:selectItem itemLabel="Sélectionnez une voiture" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{missionBean.voitureList}" var="car"
-								itemLabel="#{car.matricule}-#{car.model.marque.libelle} #{car.model.libelle}"
+								itemLabel="#{car.matricule} - #{car.model.marque.libelle} #{car.model.libelle}"
 								itemValue="#{car.matricule}" />
+							<p:ajax event="change"
+								listener="#{missionBean.setOdometreSortieValue()}"
+								update="odometre" />
 						</p:selectOneMenu>
 
 
@@ -183,7 +190,7 @@
 						<p:inputText
 							value="#{missionBean.mission.departementByIdDepartementDest.ville.libelle} - #{missionBean.mission.departementByIdDepartementDest.libelle}"
 							style="width:220px" rendered="#{missionBean.btnEdit}"
-							disabled="#{missionBean.btnEdit}"></p:inputText>
+							readonly="#{missionBean.btnEdit}"></p:inputText>
 
 						<p:selectOneMenu value="#{missionBean.villeDest.id}"
 							style="width:220px" rendered="#{missionBean.btnAdd}">
@@ -210,29 +217,26 @@
 						<h:outputText value="Date affectation" />
 						<p:inputText value="#{missionBean.mission.dateSortie}"
 							pattern="dd/MM/yyyy" rendered="#{missionBean.btnEdit}"
-							style="width:220px" disabled="#{missionBean.btnEdit}">
+							style="width:220px" readonly="#{missionBean.btnEdit}">
 						</p:inputText>
-						<p:calendar value="#{missionBean.mission.dateSortie}"
+						<p:calendar id="dateS" value="#{missionBean.mission.dateSortie}"
 							pattern="dd/MM/yyyy" mindate="Date.now()"
-							placeholder="Date de retour" rendered="#{missionBean.btnAdd}"
-							style="width:220px">
+							rendered="#{missionBean.btnAdd}" style="width:220px">
 						</p:calendar>
 
 
 						<h:outputText value="Date de retour"
-							rendered="#{bonCadreBean.btnEdit}" />
-						<p:calendar value="#{missionBean.mission.dateRetour}"
+							rendered="#{missionBean.btnEdit}" />
+						<p:calendar id="dateR" value="#{missionBean.mission.dateRetour}"
 							pattern="dd/MM/yyyy" mindate="Date.now()"
-							placeholder="Date de retour" rendered="#{bonCadreBean.btnEdit}"
-							style="width:220px">
+							rendered="#{missionBean.btnEdit}" style="width:220px">
 						</p:calendar>
 
 						<h:outputText value="Odométre de sortie" />
-						<p:inputText value="#{missionBean.mission.odometreSortie}"
-							style="width:220px" required="true"
-							placeholder="Odométre de sortie"
-							requiredMessage="Odométre obligatoire" maxlength="6"
-							disabled="#{missionBean.btnEdit}">
+						<p:inputText id="odometre"
+							value="#{missionBean.mission.odometreSortie}" style="width:220px"
+							required="true" placeholder="Odométre de sortie" readonly="true"
+							requiredMessage="Odométre obligatoire" maxlength="6">
 							<p:keyFilter regEx="/[\d\-]/" />
 						</p:inputText>
 
@@ -244,9 +248,10 @@
 							<p:keyFilter regEx="/[\d\-]/" />
 						</p:inputText>
 
-						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
-							style="color:white" action="#{missionBean.ajouter()}"
-							update="tab panel" rendered="#{missionBean.btnAdd}"
+						<p:commandLink title="Ajouter"
+							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
+							action="#{missionBean.ajouter()}" update="tab panel"
+							rendered="#{missionBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
 							<i class="fa fa-check"></i>
 							<p:confirm header="Confirmation"
@@ -267,9 +272,9 @@
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 
-						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
-							style="color:white" onclick="PF('dlg1').hide();" process="@this"
-							update="panel">
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
+							title="Annuler" style="color:white" onclick="PF('dlg1').hide();"
+							process="@this" update="panel">
 							<i class="fa fa-close"></i>
 						</p:commandLink>
 					</h:panelGrid>

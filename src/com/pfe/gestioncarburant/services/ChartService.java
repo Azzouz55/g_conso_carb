@@ -1,9 +1,10 @@
 package com.pfe.gestioncarburant.services;
 
-import com.pfe.gestioncarburant.entities.TypeCarburant;
+import java.util.Calendar;
+import java.util.List;
 
 public interface ChartService {
 
-	public int[] getQteMoisbyGazoil(TypeCarburant typeCarburant) throws Exception;
+	List<String> findValeurByCritere(int critere, Calendar date);
 
 }

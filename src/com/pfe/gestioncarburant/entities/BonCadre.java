@@ -58,7 +58,7 @@ public class BonCadre implements java.io.Serializable {
 		this.bonCarburant = bonCarburant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "matricule_cadre", nullable = false, insertable = false, updatable = false)
 	public Cadre getCadre() {
 		return this.cadre;

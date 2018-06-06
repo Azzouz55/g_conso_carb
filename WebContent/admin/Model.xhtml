@@ -10,14 +10,14 @@
 		<f:metadata>
 			<f:viewParam name="id" />
 			<f:event type="preRenderView"
-				listener="#{modelBean.init}" />
+				listener="#{modeleBean.init}" />
 		</f:metadata>
 	</f:view>
 </h:head>
 
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
-		<h2>Gestion des Modéles (<h:outputText value="#{modeleBean.marque.libelle}" />)</h2>
+		<h2>Gestion des Modéles (<h:outputText value="#{modeleBean.marque.libelle}" style="color:black" />)</h2>
 	</ui:define>
 	<ui:define name="content">
 		<body>
@@ -29,7 +29,7 @@
 					rowsPerPageTemplate="5,10"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Modéles
+					Modéles de <h:outputText value="#{modeleBean.marque.libelle}" />
 						<p:commandLink styleClass="btn btn-round btn-success" style="float:left;color:white"
 							action="Marque" process="@this">
 							<i class="fa fa-arrow-left"></i>

@@ -17,7 +17,7 @@
 </h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
-		<h2>Affectation des bons de mission '#<h:outputText value="#{bonMissionBean.mission.id}"/>'</h2>
+		<h2>Affectation des bons de mission '#<h:outputText value="#{bonMissionBean.mission.id} " style="color:black"/>'</h2>
 	</ui:define>
 	<ui:define name="content">
 		<body>
@@ -28,7 +28,7 @@
 					rowsPerPageTemplate="10,20"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Bons de carburant affectés
+					Bons de carburant affectés à #<h:outputText value="#{bonMissionBean.mission.id}" />
 						<p:commandLink styleClass="btn btn-round btn-success"
 							style="float:left;color:white" action="Mission"
 							process="@this">
@@ -48,7 +48,7 @@
 					</f:facet>
 
 					<p:column headerText="Date">
-						<h:outputText value="#{aff.dateAffectation}">
+						<h:outputText value="#{aff.id.dateAffectation}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
@@ -99,11 +99,11 @@
 					<h:panelGrid columns="2" id="panel">
 
 						<h:outputText value="Date affectation" />
-						<p:calendar value="#{bonMissionBean.bonMission.dateAffectation}"
+						<p:calendar value="#{bonMissionBean.id.dateAffectation}"
 							pattern="dd/MM/yyyy" mindate="Date.now()"
 							rendered="#{bonMissionBean.btnAdd}" style="width:180px">
 						</p:calendar>
-						<p:inputText value="#{bonMissionBean.bonMission.dateAffectation}"
+						<p:inputText value="#{bonMissionBean.bonMission.id.dateAffectation}"
 							pattern="dd/MM/yyyy" rendered="#{bonMissionBean.btnEdit}"
 							style="width:180px">
 						</p:inputText>
@@ -123,8 +123,6 @@
 							style="width:180px"
 							value="#{bonMissionBean.bonCarburant.typeCarburant.libelle} - #{bonMissionBean.bonCarburant.litre}L">
 						</p:inputText>
-
-
 
 						<h:outputText value="Quantité" />
 						<p:spinner value="#{bonMissionBean.bonMission.qte}" min="1"

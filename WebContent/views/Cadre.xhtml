@@ -78,7 +78,7 @@
 					</p:rowExpansion>
 					<p:column headerText="Action">
 
-						<p:commandLink title="Supprimer"
+						<p:commandLink title="Supprimer" rendered="#{request.isUserInRole('Administrateur')}"
 							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
 							action="#{cadreBean.supprimer()}" update="tab" process="@this">
 							<f:setPropertyActionListener value="#{cadre}"
@@ -105,7 +105,7 @@
 							<i class="fa fa-car"></i>
 						</p:commandLink>
 
-						<p:commandLink title="Affectation Bon Carburant" action="BonCadre"
+						<p:commandLink title="Affectation Bon Carburant" action="#{bonCadreBean.redirect()}"
 							style="color:white" styleClass="btn btn-round btn-info btn-lg"
 							process="@this" immediate="true">
 							<f:setPropertyActionListener value="#{cadre}"
@@ -172,7 +172,7 @@
 							<f:selectItem itemLabel="Sélectionnez un départemet" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{cadreBean.listDepartement}" var="dep"
-								itemLabel="#{dep.libelle}" itemValue="#{dep.id}" />
+								itemLabel="#{dep.libelle} - #{dep.ville.libelle} " itemValue="#{dep.id}" />
 						</p:selectOneMenu>
 
 
@@ -186,7 +186,7 @@
 								itemLabel="#{cat.libelle}" itemValue="#{cat.id}" />
 						</p:selectOneMenu>
 						
-						<p:commandLink title="Ajouter" styleClass="btn btn-primary btn-lg"
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
 							style="color:white;margin-top:5px" action="#{cadreBean.ajouter()}"
 							update="tab panel" rendered="#{cadreBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">

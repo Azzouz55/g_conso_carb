@@ -35,6 +35,9 @@
    <PROCESS-ITEM-OUTPUT ID="Users::#admin#Users.xhtml" NAME="output10"
     PATH="/admin/Users.xhtml" TARGET="rules:#admin#Users.xhtml"
     TITLE="Users" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Index::#views#Index.xhtml" NAME="output11"
+    PATH="/views/Index.xhtml" TARGET="rules:#views#Index.xhtml"
+    TITLE="Index" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#views#Cadre.xhtml" PATH="/views/Cadre.xhtml"
@@ -112,4 +115,6 @@
  <PROCESS-ITEM NAME="rules:#admin#Departement.xhtml"
   PATH="/admin/Departement.xhtml" SHAPE="902,406,0,0"
   model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#views#Index.xhtml" PATH="/views/Index.xhtml"
+  SHAPE="472,640,50,25" model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

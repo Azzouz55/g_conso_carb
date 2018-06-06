@@ -21,4 +21,6 @@ public interface VoitureService {
 
 	public List<Voiture> findVoitureServiceNonAffecte() throws Exception;
 
+	public Voiture findVoitureByMatricule(String matricule) throws Exception;
+
 }
