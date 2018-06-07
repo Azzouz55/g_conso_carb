@@ -78,12 +78,11 @@
 
 
 				<p:dialog header="Entre Bon" widgetVar="dlg1" resizable="false" modal="true">
-
 					<h:panelGrid columns="2" id="panel">
 						<h:outputText value="Date :" />
 						<p:calendar rendered="#{entreBonBean.btnAdd}"
 							value="#{entreBonBean.entreBon.date}" pattern="dd/MM/yyyy"
-							style="width:180px" mindate="Date.now()">
+							style="width:180px" mindate="Date.now()" required="true" requiredMessage="Date obligatoir">
 						</p:calendar>
 						<p:inputText rendered="#{entreBonBean.btnEdit}" readonly="true"
 							value="#{entreBonBean.entreBon.date}" pattern="dd/MM/yyyy"
@@ -92,7 +91,7 @@
 
 						<h:outputText value="Bon Carburant :" />
 						<p:selectOneMenu rendered="#{entreBonBean.btnAdd}"
-							value="#{entreBonBean.bonCarburant.id}" style="width:180px">
+							value="#{entreBonBean.bonCarburant.id}" style="width:180px" required="true" requiredMessage="Bon carburant obligatoir">
 							<f:selectItem itemLabel="Sélectionnez une option" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{bonCarburantBean.list}"

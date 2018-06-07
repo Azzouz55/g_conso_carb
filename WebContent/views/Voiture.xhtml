@@ -28,7 +28,7 @@
 							style="float:right;color:white">
 							<i class="fa fa-plus"></i>
 							Ajouter
-					</p:commandLink>
+						</p:commandLink>
 						<br />
 						<br />
 					</f:facet>
@@ -94,16 +94,15 @@
 					<h:panelGrid columns="2" id="panel">
 						<h:outputText value="Matricule" />
 						<p:inputText value="#{voitureBean.voiture.matricule}"
-							style="width:200px" readonly="#{voitureBean.read}"
+							style="width:200px" 
 							required="true" requiredMessage="Matricule obligatoire"
-							maxlength="10" disabled="#{cadreBean.btnEdit}">
+							maxlength="10" disabled="#{voitureBean.btnEdit}">
 							<p:keyFilter regEx="/[a-z0-9]/i" />
 						</p:inputText>
 
 						<h:outputText value="Marque" />
-
 						<p:selectOneMenu value="#{voitureBean.marque.id}"
-							style="width:200px">
+							style="width:200px" required="true" requiredMessage="Marque obligatoir">
 							<f:selectItem itemLabel="Sélectionnez une marque" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{marqueBean.list}" var="marque"
@@ -114,7 +113,7 @@
 
 						<h:outputText value="Modèle" />
 						<p:selectOneMenu id="selectModel" value="#{voitureBean.modele.id}"
-							style="width:200px">
+							style="width:200px" required="true" requiredMessage="Modéle obligatoir">
 							<f:selectItem itemLabel="Sélectionnez un modèle" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{voitureBean.listModel}" var="model"
@@ -140,8 +139,7 @@
 
 						<h:outputText value="TypeCarburant" />
 						<p:selectOneMenu value="#{voitureBean.typeCarburant.id}"
-							style="width:200px">
-
+							style="width:200px" required="true" requiredMessage="Type de carburant obligatoire">
 							<f:selectItem itemLabel="Sélectionnez une option" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{typeCarburantBean.list}"

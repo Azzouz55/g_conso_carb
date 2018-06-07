@@ -20,9 +20,9 @@
 	</ui:define>
 	<ui:define name="content">
 		<body>
-
 			<h:form id="f1">
-
+			
+<!-- 				La list des bon cadre et action -->
 				<p:dataTable id="tab" value="#{bonCadreBean.list}" var="aff"
 					rows="10" paginator="true" paginatorPosition="bottom"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -89,10 +89,10 @@
 						</p:row>
 					</p:columnGroup>
 				</p:dataTable>
-
+				
+<!-- 				La boite de dialog d'insertion/modification -->
 				<p:dialog widgetVar="dlg1" resizable="false"
 					header="Affecation Bon Carburant" modal="true">
-
 					<h:panelGrid columns="2" id="panel">
 
 						<h:outputText value="Date affectation" />
@@ -120,8 +120,6 @@
 							style="width:180px"
 							value="#{bonCadreBean.bonCarburant.typeCarburant.libelle} - #{bonCadreBean.bonCarburant.litre}L">
 						</p:inputText>
-
-
 
 						<h:outputText value="Quantité" />
 						<p:spinner value="#{bonCadreBean.bonCadre.qte}" min="1" max="200"

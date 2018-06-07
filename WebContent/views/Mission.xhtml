@@ -40,7 +40,7 @@
 					<p:column style="width:30px">
 						<p:rowToggler />
 					</p:column>
-					<p:column headerText="Numéro">
+					<p:column headerText="N°" style="width:70px">
 						<h:outputText value="#{mission.id}" />
 					</p:column>
 					<p:column headerText="Responsable">
@@ -191,7 +191,7 @@
 							style="width:220px" rendered="#{missionBean.btnEdit}"
 							readonly="#{missionBean.btnEdit}"></p:inputText>
 
-						<p:selectOneMenu value="#{missionBean.villeDest.id}"
+						<p:selectOneMenu value="#{missionBean.villeDest.id}" required="true" requiredMessage="Ville destination obligatoir"
 							style="width:220px" rendered="#{missionBean.btnAdd}">
 							<f:selectItem itemLabel="Sélectionnez une ville"
 								noSelectionOption="true" />
@@ -204,7 +204,7 @@
 
 						<h:outputText value="Département destinantion"
 							rendered="#{missionBean.btnAdd}" />
-						<p:selectOneMenu id="selectDept"
+						<p:selectOneMenu id="selectDept" required="true" requiredMessage="Département obligatoir"
 							value="#{missionBean.departementDest.id}" style="width:220px"
 							rendered="#{missionBean.btnAdd}">
 							<f:selectItem itemLabel="Sélectionnez un département"
@@ -220,7 +220,7 @@
 						</p:inputText>
 						<p:calendar id="dateS" value="#{missionBean.mission.dateSortie}"
 							pattern="dd/MM/yyyy" mindate="Date.now()"
-							rendered="#{missionBean.btnAdd}" style="width:220px">
+							rendered="#{missionBean.btnAdd}" style="width:220px" required="true" requiredMessage="Date de sortie obligatoir">
 						</p:calendar>
 
 
@@ -234,7 +234,7 @@
 						<h:outputText value="Odométre de sortie" />
 						<p:inputText id="odometre"
 							value="#{missionBean.mission.odometreSortie}" style="width:220px"
-							required="true" placeholder="Odométre de sortie" readonly="true"
+							required="true" placeholder="Odométre de sortie" 
 							requiredMessage="Odométre obligatoire" maxlength="6">
 							<p:keyFilter regEx="/[\d\-]/" />
 						</p:inputText>
@@ -249,7 +249,7 @@
 
 						<p:commandLink title="Ajouter"
 							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
-							action="#{missionBean.ajouter()}" update="tab panel"
+							action="#{missionBean.ajouter()}" update="tab"
 							rendered="#{missionBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
 							<i class="fa fa-check"></i>

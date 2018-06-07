@@ -17,11 +17,7 @@
 	</ui:define>
 	<ui:define name="content">
 		<body>
-
 			<h:form id="f1">
-
-
-				<br />
 				<p:dataTable id="tab" value="#{chauffeurBean.list}" var="chauffeur"
 					rows="5" paginator="true" paginatorPosition="bottom"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -29,10 +25,10 @@
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
 					Chauffeurs
-						<p:commandLink title="Ajouter"
+						<p:commandLink title="Ajouter" update=":f1:panel"
 							styleClass="btn btn-round btn-success"
-							style="float:right;color:white" update=":f1:panel"
-							action="#{chauffeurBean.clickAdd()}" onclick="PF('dlg1').show();"
+							style="float:right;color:white"
+							action="#{chauffeurBean.clickAdd()}" onclick="PF('dlg1').show();#{chauffeurBean.clickAdd()}"
 							process="@this">
 							<i class="fa fa-plus"></i>
 							Ajouter
@@ -93,23 +89,29 @@
 						<p:commandLink title="Editer" style="color:white"
 							styleClass="btn btn-round btn-warning btn-lg"
 							action="#{chauffeurBean.clickEdit()}" update=":f1:panel"
-							onclick="PF('dlg1').show();" process="@this">
+							onclick="PF('dlg1').show();" immediate="true" process="@this">
 							<f:setPropertyActionListener value="#{chauffeur}"
 								target="#{chauffeurBean.chauffeur}" />
 							<i class="fa fa-edit"></i>
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
-
-				<p:dialog header="Chauffeur" widgetVar="dlg1" resizable="false"
-					modal="true">
+				
+				<p:dialog header="Chauffeur" widgetVar="dlg1" resizable="false" modal="true">
 					<h:panelGrid columns="2" id="panel">
 						<h:outputText value="Matricule :" />
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.matricule}"
 							style="width:180px" required="true" placeholder="Matricule"
-							disabled="#{chauffeurBean.btnEdit}"
-							requiredMessage="Matricule obligatoire">
+							requiredMessage="Matricule obligatoire" maxlength="8"
+							readonly="#{chauffeurBean.btnEdit}">
 							<p:keyFilter regEx="/[a-z0-9_]/i" />
+						</p:inputText>
+
+						<h:outputText value="CIN :" />
+						<p:inputText value="#{chauffeurBean.chauffeur.employee.cin}"
+							style="width:180px" required="true" placeholder="Carte d'identité nationale"
+							requiredMessage="CIN obligatoire" maxlength="8">
+							<p:keyFilter regEx="/[\d\-]/" />
 						</p:inputText>
 
 						<h:outputText value="Nom :" />
@@ -126,20 +128,12 @@
 							<p:keyFilter regEx="/[a-z_ ]/i" />
 						</p:inputText>
 
-						<h:outputText value="CIN :" />
-						<p:inputText value="#{chauffeurBean.chauffeur.employee.cin}"
-							style="width:180px" required="true" placeholder="CIN"
-							requiredMessage="Cin obligatoire" maxlength="8">
-							<p:keyFilter regEx="/[\d\-]/" />
-						</p:inputText>
-
-						<h:outputText value="E-mail :" />
+						<h:outputText value="E-Mail :" />
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.email}"
-							style="width:180px" required="true" placeholder="E-mail"
-							requiredMessage="Email obligatoire">
+							style="width:180px" required="true" placeholder="E-Mail"
+							requiredMessage="E-Mail obligatoire">
 							<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
-						</p:inputText>
-
+							</p:inputText>
 
 						<h:outputText value="Adresse :" />
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.adresse}"
@@ -151,41 +145,34 @@
 
 						<h:outputText value="Téléphone :" />
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.tel}"
-							style="width:180px" required="true" placeholder="Téléphone"
-							requiredMessage="Téléphone obligatoire" maxlength="8">
-							<p:keyFilter regEx="/[\d\]/" />
+							style="width:180px" required="true" maxlength="8" placeholder="Téléphone"
+							requiredMessage="Numéro de téléphone obligatoire">
+							<p:keyFilter regEx="/[\d]/" />
 						</p:inputText>
-
-						<p:commandLink title="Ajouter"
-							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
-							action="#{chauffeurBean.ajouter()}" update="tab"
+				
+						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
+							style="color:white" action="#{chauffeurBean.ajouter()}" update="tab"
 							rendered="#{chauffeurBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
 							<i class="fa fa-check"></i>
 						</p:commandLink>
-
 
 						<p:commandLink title="Modifier"
 							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
 							action="#{chauffeurBean.modifier()}" update="tab"
 							rendered="#{chauffeurBean.btnEdit}"
 							oncomplete="handleAddRequest(xhr, status,args)">
-
 							<p:confirm header="Confirmation"
 								message="Vous etes sur de modifier cet enregistrement?"
 								icon="ui-icon-alert" />
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 
-						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
-							title="Annuler" style="color:white" onclick="PF('dlg1').hide();"
-							process="@this">
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
 							<i class="fa fa-close"></i>
 						</p:commandLink>
-
 					</h:panelGrid>
-
-
 				</p:dialog>
 
 				<p:growl id="growl" showDetail="true" sticky="true"

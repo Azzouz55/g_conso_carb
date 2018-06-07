@@ -36,7 +36,6 @@ public class BonMissionBean {
 	private BonCarburant bonCarburant = new BonCarburant();
 	private Voiture voiture = new Voiture();
 	private Mission mission;
-
 	private List<BonMission> list = new ArrayList<>();
 	private List<BonCarburant> listBonCarburant = new ArrayList<>();
 	private boolean btnAdd, btnEdit, disabled;
@@ -62,7 +61,6 @@ public class BonMissionBean {
 
 	public void ajouter() {
 		id.setIdMission(mission.getId());
-		id.setIdBonCarburant(bonCarburant.getId());
 		bonMission.setId(id);
 		try {
 			String[] test = bonMissionService.save(bonMission);
@@ -106,7 +104,6 @@ public class BonMissionBean {
 	}
 
 	public void supprimer() {
-
 		try {
 			bonMissionService.delete(bonMission);
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -118,6 +115,7 @@ public class BonMissionBean {
 		}
 	}
 
+	// Getters and setters
 	public BonMission getBonMission() {
 		return bonMission;
 	}
@@ -158,34 +156,6 @@ public class BonMissionBean {
 		this.mission = mission;
 	}
 
-	public List<BonMission> getList() {
-		try {
-			list = bonMissionService.findBonMissionByMission(mission);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	public void setList(List<BonMission> list) {
-		this.list = list;
-	}
-
-	public List<BonCarburant> getListBonCarburant() {
-		try {
-			listBonCarburant = bonCarburantService.findBonCarburantByVoiture(mission.getVoiture());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listBonCarburant;
-	}
-
-	public void setListBonCarburant(List<BonCarburant> listBonCarburant) {
-		this.listBonCarburant = listBonCarburant;
-	}
-
 	public boolean isBtnAdd() {
 		return btnAdd;
 	}
@@ -210,6 +180,36 @@ public class BonMissionBean {
 		this.disabled = disabled;
 	}
 
+	public List<BonMission> getList() {
+		try {
+			list = bonMissionService.findBonMissionByMission(mission);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public void setList(List<BonMission> list) {
+		this.list = list;
+	}
+
+	// List bon carburant par rapport la voiture de mission
+	public List<BonCarburant> getListBonCarburant() {
+		try {
+			listBonCarburant = bonCarburantService.findBonCarburantByVoiture(mission.getVoiture());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listBonCarburant;
+	}
+
+	public void setListBonCarburant(List<BonCarburant> listBonCarburant) {
+		this.listBonCarburant = listBonCarburant;
+	}
+
+	// Calcul de total des litres affectées
 	public int getTotalLitre() {
 		int total = 9999;
 		try {
@@ -222,8 +222,7 @@ public class BonMissionBean {
 		return total;
 	}
 
-	// Prevent direct access to AffectationVoitureCadre.xhtml
-
+	// Prevent direct access to BonMission.xhtml
 	public void init() throws IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (mission == null) {

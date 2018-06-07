@@ -57,7 +57,7 @@ public class BonMission implements java.io.Serializable {
 		this.bonCarburant = bonCarburant;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_mission", nullable = false, insertable = false, updatable = false)
 	public Mission getMission() {
 		return this.mission;

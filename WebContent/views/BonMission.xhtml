@@ -100,9 +100,7 @@
 
 				<p:dialog widgetVar="dlg1" resizable="false"
 					header="Affecation Bon Carburant" modal="true">
-
 					<h:panelGrid columns="2" id="panel">
-
 						<h:outputText value="Date affectation" />
 						<p:calendar value="#{bonMissionBean.id.dateAffectation}"
 							pattern="dd/MM/yyyy" mindate="Date.now()"
@@ -110,13 +108,13 @@
 						</p:calendar>
 						<p:inputText
 							value="#{bonMissionBean.bonMission.id.dateAffectation}"
-							pattern="dd/MM/yyyy" disabled="#{bonCadreBean.btnEdit}"
+							pattern="dd/MM/yyyy" readonly="true"
 							rendered="#{bonMissionBean.btnEdit}" style="width:180px">
 						</p:inputText>
 
 						<h:outputText value="Bon Carburant" />
 						<p:selectOneMenu rendered="#{bonMissionBean.btnAdd}"
-							value="#{bonMissionBean.bonCarburant.id}" style="width:180px">
+							value="#{bonMissionBean.id.idBonCarburant}" style="width:180px">
 							<f:selectItem itemLabel="Sélectionnez une option" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{bonMissionBean.listBonCarburant}"

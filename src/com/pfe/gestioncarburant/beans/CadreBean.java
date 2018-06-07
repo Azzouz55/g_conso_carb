@@ -32,6 +32,8 @@ public class CadreBean {
 	private DepartementService departementService;
 
 	private Cadre cadre = new Cadre();
+	private Categorie categorie = new Categorie();
+	private Departement departement = new Departement();
 	private List<Cadre> list = new ArrayList<Cadre>();
 	private List<Categorie> listCategorie = new ArrayList<Categorie>();
 	private List<Departement> listDepartement = new ArrayList<Departement>();
@@ -39,25 +41,24 @@ public class CadreBean {
 
 	public void clickAdd() {
 		cadre = new Cadre();
+		categorie = new Categorie();
+		departement = new Departement();
 		btnAdd = true;
 		btnEdit = false;
 	}
 
 	public void clickEdit() {
-
-		try {
-			listCategorie = categorieService.findAll();
-			listDepartement = departementService.findAll();
-			btnAdd = false;
-			btnEdit = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		departement = cadre.getDepartement();
+		categorie = cadre.getCategorie();
+		btnAdd = false;
+		btnEdit = true;
 
 	}
 
 	public void ajouter() {
 		try {
+			cadre.setCategorie(categorie);
+			cadre.setDepartement(departement);
 			String[] test = cadreService.save(cadre);
 			if (test[0] == "1") {
 				FacesContext.getCurrentInstance().addMessage(null,
@@ -81,6 +82,8 @@ public class CadreBean {
 
 	public void modifier() {
 		try {
+			cadre.setCategorie(categorie);
+			cadre.setDepartement(departement);
 			String test[] = cadreService.update(cadre);
 			if (test[0] == "1") {
 
@@ -138,6 +141,22 @@ public class CadreBean {
 		this.cadre = cadre;
 	}
 
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
 	public List<Categorie> getListCategorie() {
 		try {
 			listCategorie = categorieService.findAll();
@@ -153,7 +172,6 @@ public class CadreBean {
 
 	public List<Departement> getListDepartement() {
 		try {
-			listDepartement = new ArrayList<>();
 			listDepartement = departementService.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -13,7 +13,7 @@
 	</ui:define>
 	<ui:define name="content">
 		<body>
-			<h:form id="f1">
+			<h:form id="f">
 				<p:dataTable id="tab" value="#{cadreBean.list}" var="cadre" rows="5"
 					paginator="true" paginatorPosition="bottom"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -21,9 +21,9 @@
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
 					Cadres
-						<p:commandLink action="#{cadreBean.clickAdd()}" update=":f1:panel"
-							styleClass="btn btn-round btn-success btn" onclick="PF('dlg1').show();"
-							process="@this" style="float:right;color:white">
+						<p:commandLink action="#{cadreBean.clickAdd()}"
+							styleClass="btn btn-round btn-success btn" onclick="PF('dlg1').show(); #{cadreBean.clickAdd()}"
+							process="@this" style="float:right;color:white" update=":f:panel" >
 							<i class="fa fa-plus"></i>
 							Ajouter
 						</p:commandLink>
@@ -77,7 +77,6 @@
 						</p:panelGrid>
 					</p:rowExpansion>
 					<p:column headerText="Action">
-
 						<p:commandLink title="Supprimer" rendered="#{request.isUserInRole('Administrateur')}"
 							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
 							action="#{cadreBean.supprimer()}" update="tab" process="@this">
@@ -91,7 +90,7 @@
 
 						<p:commandLink title="Editer" action="#{cadreBean.clickEdit()}"
 							style="color:white" styleClass="btn btn-round btn-warning btn-lg"
-							update=":f1:panel" onclick="PF('dlg1').show();" process="@this">
+							 onclick="PF('dlg1').show();" process="@this" update=":f:panel">
 							<f:setPropertyActionListener value="#{cadre}"
 								target="#{cadreBean.cadre}" />
 							<i class="fa fa-edit"></i>
@@ -114,65 +113,63 @@
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
-
+				
 				<p:dialog header="Cadre" widgetVar="dlg1" resizable="false" modal="true">
-
 					<h:panelGrid columns="2" id="panel">
-						<h:outputText value="Matricule : " />
-						<p:inputText value="#{cadreBean.cadre.employee.matricule}"
-							style="width:200px" required="true" placeholder="Matricule"
-							requiredMessage="Matricule obligatoire" maxlength="8"
-							disabled="#{cadreBean.btnEdit}"></p:inputText>
 
-						<h:outputText value="Cin : " />
+						<h:outputText value="Matricule :" />
+						<p:inputText value="#{cadreBean.cadre.employee.matricule}"
+							style="width:180px" required="true" placeholder="Matricule"
+							requiredMessage="Matricule obligatoire" maxlength="8"
+							readonly="#{cadreBean.btnEdit}">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+						</p:inputText>
+
+						<h:outputText value="CIN :" />
 						<p:inputText value="#{cadreBean.cadre.employee.cin}"
-							style="width:200px" required="true" placeholder="Carte d'identité nationale"
+							style="width:180px" required="true" placeholder="Carte d'identité nationale"
 							requiredMessage="CIN obligatoire" maxlength="8">
 							<p:keyFilter regEx="/[\d\-]/" />
 						</p:inputText>
 
-
-						<h:outputText value="Nom : " />
+						<h:outputText value="Nom :" />
 						<p:inputText value="#{cadreBean.cadre.employee.nom}"
-							style="width:200px" required="true" placeholder="Nom" maxlength="20"
+							style="width:180px" required="true" placeholder="Nom"
 							requiredMessage="Nom obligatoire">
 							<p:keyFilter regEx="/[a-z_ ]/i" />
-							</p:inputText>
+						</p:inputText>
 
-
-						<h:outputText value="Prénom : " />
-						<p:inputText value="#{cadreBean.cadre.employee.prenom}" maxlength="20"
-							style="width:200px" required="true" placeholder="Prénom"
+						<h:outputText value="Prénom :" />
+						<p:inputText value="#{cadreBean.cadre.employee.prenom}"
+							style="width:180px" required="true" placeholder="Prénom"
 							requiredMessage="Prénom obligatoire">
 							<p:keyFilter regEx="/[a-z_ ]/i" />
-							</p:inputText>
-
-
-						<h:outputText value="Email : " />
-						<p:inputText value="#{cadreBean.cadre.employee.email}" maxlength="40"
-							style="width:200px" required="true" placeholder="E-Mail"
-							requiredMessage="Email obligatoire">
-							<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
 						</p:inputText>
 
+						<h:outputText value="E-Mail :" />
+						<p:inputText value="#{cadreBean.cadre.employee.email}"
+							style="width:180px" required="true" placeholder="E-Mail"
+							requiredMessage="E-Mail obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_\.\-@]/i" />
+							</p:inputText>
 
-						<h:outputText value="Adresse : " />
-						<p:inputText value="#{cadreBean.cadre.employee.adresse}" maxlength="30"
-							style="width:200px" required="true" placeholder="Adresse"
+						<h:outputText value="Adresse :" />
+						<p:inputText value="#{cadreBean.cadre.employee.adresse}"
+							style="width:180px" required="true" placeholder="Adresse"
 							requiredMessage="Adresse obligatoire">
 							<p:keyFilter regEx="/[a-z0-9_ \.]/i" />
-							</p:inputText>
-
-
-						<h:outputText value="Téléphone : " />
-						<p:inputText value="#{cadreBean.cadre.employee.tel}"
-							style="width:200px" required="true" placeholder="Numéro de téléphone"
-							requiredMessage="Téléphone obligatoire" maxlength="8">
-							<p:keyFilter regEx="/[\d\]/" />
 						</p:inputText>
 
+
+						<h:outputText value="Téléphone :" />
+						<p:inputText value="#{cadreBean.cadre.employee.tel}"
+							style="width:180px" required="true" maxlength="8" placeholder="Téléphone"
+							requiredMessage="Numéro de téléphone obligatoire">
+							<p:keyFilter regEx="/[\d]/" />
+						</p:inputText>
+						
 						<h:outputText value="Departement : " />
-						<p:selectOneMenu value="#{cadreBean.cadre.departement.id}"
+						<p:selectOneMenu value="#{cadreBean.departement.id}"
 							style="width:200px" required="true"
 							requiredMessage="Departement obligatoire">
 							<f:selectItem itemLabel="Sélectionnez un départemet" itemValue=""
@@ -183,28 +180,28 @@
 
 
 						<h:outputText value="Categorie : " />
-						<p:selectOneMenu value="#{cadreBean.cadre.categorie.id}"
+						<p:selectOneMenu value="#{cadreBean.categorie.id}"
 							style="width:200px" required="true"
 							requiredMessage="Categorie obligatoire">
 							<f:selectItem itemLabel="Sélectionnez une catégorie" itemValue=""
 								noSelectionOption="true" />
-							<f:selectItems value="#{cadreBean.listCategorie}" var="cat"
+							<f:selectItems value="#{categorieBean.list}" var="cat"
 								itemLabel="#{cat.libelle}" itemValue="#{cat.id}" />
 						</p:selectOneMenu>
-						
+				
 						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"
-							style="color:white;margin-top:5px" action="#{cadreBean.ajouter()}"
-							update="tab panel" rendered="#{cadreBean.btnAdd}"
+							style="color:white" action="#{cadreBean.ajouter()}" update="tab"
+							rendered="#{cadreBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
-							<i class="fa fa-check"></i>
 							<p:confirm header="Confirmation"
-								message="Vous etes sur d'ajouter cet enregistrement?"
+								message="Vous etes sur d'enregistrer ce cadre?"
 								icon="ui-icon-alert" />
+							<i class="fa fa-check"></i>
 						</p:commandLink>
-						
+
 						<p:commandLink title="Modifier"
 							styleClass="btn btn-round btn-primary btn-lg" style="color:white"
-							action="#{cadreBean.modifier()}" update="tab panel"
+							action="#{cadreBean.modifier()}" update="tab"
 							rendered="#{cadreBean.btnEdit}"
 							oncomplete="handleAddRequest(xhr, status,args)">
 							<p:confirm header="Confirmation"
@@ -214,14 +211,13 @@
 						</p:commandLink>
 
 						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
-							style="color:white" onclick="PF('dlg1').hide();" process="@this"
-							update="panel">
+							style="color:white" onclick="PF('dlg1').hide();" process="@this">
 							<i class="fa fa-close"></i>
 						</p:commandLink>
 					</h:panelGrid>
-
-
 				</p:dialog>
+
+				
 
 				<p:growl id="growl" showDetail="true" sticky="true"
 					autoUpdate="true" life="2000" />

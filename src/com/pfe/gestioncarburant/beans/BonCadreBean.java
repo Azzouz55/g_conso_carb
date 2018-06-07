@@ -46,13 +46,15 @@ public class BonCadreBean {
 	private BonCadreId id = new BonCadreId();
 	private BonCarburant bonCarburant = new BonCarburant();
 	private Cadre cadre;
-	private Calendar date = Calendar.getInstance();
 	private Voiture voiture = new Voiture();
 	private Affectation affectation;
 	private List<BonCadre> list = new ArrayList<>();
 	private List<BonCarburant> listBonCarburant = new ArrayList<>();
+	private Calendar date = Calendar.getInstance();
 	private boolean btnAdd, btnEdit, disabled;
 
+	// Rederiction à la page Cadrexhtml
+	// si le cadre séléctionné n'obtient encore de voiture
 	public void redirect() {
 		try {
 			affectation = (Affectation) affectationVoitureService.findAffectationByCadre(cadre, null).get(0);
@@ -64,8 +66,10 @@ public class BonCadreBean {
 			}
 
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte",
-					"S'il vous plait, affectez une voiture pour le cadre n°:" + cadre.getMatricule()));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte",
+							"S'il vous plait, affectez une voiture pour le cadre n°:" + cadre.getMatricule()
+									+ "avant l'affectation des bons"));
 			e.printStackTrace();
 		}
 	}
@@ -93,7 +97,6 @@ public class BonCadreBean {
 		try {
 			Cadre cadre2 = cadreService.getCadre(cadre);
 			bonCadre.setCadre(cadre2);
-
 			id.setMatriculeCadre(cadre.getMatricule());
 			bonCadre.setId(id);
 			String[] test = bonCadreService.save(bonCadre);

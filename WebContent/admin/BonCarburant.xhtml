@@ -5,7 +5,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
+<h:head>
+	
+</h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
 		<h2>Gestion des Bons de Carburants</h2>
@@ -73,7 +75,7 @@
 						<h:outputText value="TypeCarburant" />
 						<p:selectOneMenu value="#{bonCarburantBean.typeCarburant.id}"
 							required="true" requiredMessage="Type carburant obligatoir">
-							<f:selectItem itemLabel="Type de carburant" itemValue="0"
+							<f:selectItem itemLabel="Type de carburant" itemValue=""
 								noSelectionOption="true" />
 							<f:selectItems value="#{typeCarburantBean.list}"
 								var="typeCarburant" itemLabel="#{typeCarburant.libelle}"

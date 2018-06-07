@@ -19,7 +19,6 @@ import com.pfe.gestioncarburant.entities.Mission;
 import com.pfe.gestioncarburant.entities.Ville;
 import com.pfe.gestioncarburant.entities.Voiture;
 import com.pfe.gestioncarburant.services.CadreService;
-import com.pfe.gestioncarburant.services.ChauffeurService;
 import com.pfe.gestioncarburant.services.DepartementService;
 import com.pfe.gestioncarburant.services.MissionService;
 import com.pfe.gestioncarburant.services.VilleService;
@@ -35,8 +34,6 @@ public class MissionBean {
 	private VoitureService voitureService;
 	@Autowired
 	private CadreService cadreService;
-	@Autowired
-	private ChauffeurService chauffeurService;
 	@Autowired
 	private VilleService villeService;
 	@Autowired
@@ -79,13 +76,6 @@ public class MissionBean {
 		cadre = mission.getCadre();
 		chauffeur = mission.getChauffeur();
 		voiture = mission.getVoiture();
-
-		// try {
-		// departement = departementService.findByCadre(cadre);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 		departementDest = mission.getDepartementByIdDepartementDest();
 
 		btnAdd = false;
