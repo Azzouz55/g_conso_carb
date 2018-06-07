@@ -46,15 +46,12 @@ public class ModelServiceImp implements ModelService {
 			modeleDao.saveOrUpdate(modele);
 			return true;
 		}
-
 		return false;
 	}
 
 	@Override
 	public void delete(Model modele) throws Exception {
-
 		modeleDao.delete(modele);
-
 	}
 
 	@Override
@@ -67,13 +64,4 @@ public class ModelServiceImp implements ModelService {
 		Criterion crit = Restrictions.eq("marque", marque);
 		return modeleDao.findByCriteria(Model.class, crit);
 	}
-
-	public ModelDao getModeleDao() {
-		return modeleDao;
-	}
-
-	public void setModeleDao(ModelDao modeleDao) {
-		this.modeleDao = modeleDao;
-	}
-
 }

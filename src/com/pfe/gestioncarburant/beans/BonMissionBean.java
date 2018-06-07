@@ -21,7 +21,6 @@ import com.pfe.gestioncarburant.entities.Mission;
 import com.pfe.gestioncarburant.entities.Voiture;
 import com.pfe.gestioncarburant.services.BonCarburantService;
 import com.pfe.gestioncarburant.services.BonMissionService;
-import com.pfe.gestioncarburant.services.MissionService;
 
 @Component
 @ManagedBean
@@ -30,8 +29,6 @@ public class BonMissionBean {
 	@Autowired
 	private BonCarburantService bonCarburantService;
 	@Autowired
-	private MissionService missionService;
-	@Autowired
 	private BonMissionService bonMissionService;
 
 	private BonMission bonMission = new BonMission();
@@ -39,6 +36,7 @@ public class BonMissionBean {
 	private BonCarburant bonCarburant = new BonCarburant();
 	private Voiture voiture = new Voiture();
 	private Mission mission;
+
 	private List<BonMission> list = new ArrayList<>();
 	private List<BonCarburant> listBonCarburant = new ArrayList<>();
 	private boolean btnAdd, btnEdit, disabled;
@@ -90,16 +88,13 @@ public class BonMissionBean {
 		try {
 			String test[] = bonMissionService.update(bonMission);
 			if (test[0] == "1") {
-
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", test[1]));
 				RequestContext.getCurrentInstance().addCallbackParam("added", true);
-
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", test[1]));
 				RequestContext.getCurrentInstance().addCallbackParam("added", false);
-
 			}
 
 		} catch (Exception e) {
@@ -122,31 +117,6 @@ public class BonMissionBean {
 			e.printStackTrace();
 		}
 	}
-
-	// Injection
-	public BonCarburantService getBonCarburantService() {
-		return bonCarburantService;
-	}
-
-	public void setBonCarburantService(BonCarburantService bonCarburantService) {
-		this.bonCarburantService = bonCarburantService;
-	}
-
-	public MissionService getMissionService() {
-		return missionService;
-	}
-
-	public void setMissionService(MissionService missionService) {
-		this.missionService = missionService;
-	}
-
-	public BonMissionService getBonMissionService() {
-		return bonMissionService;
-	}
-
-	public void setBonMissionService(BonMissionService bonMissionService) {
-		this.bonMissionService = bonMissionService;
-	}// ***********************
 
 	public BonMission getBonMission() {
 		return bonMission;

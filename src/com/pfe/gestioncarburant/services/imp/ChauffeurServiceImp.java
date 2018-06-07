@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfe.gestioncarburant.dao.ChauffeurDao;
-import com.pfe.gestioncarburant.dao.imp.ChauffeurDaoImp;
 import com.pfe.gestioncarburant.entities.Chauffeur;
 import com.pfe.gestioncarburant.entities.Employee;
 import com.pfe.gestioncarburant.services.ChauffeurService;
+
 @Service
 public class ChauffeurServiceImp implements ChauffeurService {
 
@@ -21,24 +21,24 @@ public class ChauffeurServiceImp implements ChauffeurService {
 
 	@Override
 	public String[] save(Chauffeur chauffeur) throws Exception {
-		
-		
-		String [] res = new String[2];
-//		Si longeur num CIN invalide
-		
+
+		String[] res = new String[2];
+		// Si longeur num CIN invalide
+
 		if (chauffeur.getEmployee().getCin().length() != 8) {
 			res[0] = "0";
 			res[1] = "CIN Invalide";
 			return res;
 		}
-//		Si format email invalide
-		if (chauffeur.getEmployee().getEmail() == null || !EmailValidator.getInstance().isValid(chauffeur.getEmployee().getEmail())){
+		// Si format email invalide
+		if (chauffeur.getEmployee().getEmail() == null
+				|| !EmailValidator.getInstance().isValid(chauffeur.getEmployee().getEmail())) {
 			res[0] = "0";
 			res[1] = "E-Mail Invalide";
 			return res;
 		}
-//		Si numéro tel invalide
-		if (chauffeur.getEmployee().getTel() == null || chauffeur.getEmployee().getTel().length() !=8){
+		// Si numéro tel invalide
+		if (chauffeur.getEmployee().getTel() == null || chauffeur.getEmployee().getTel().length() != 8) {
 			res[0] = "0";
 			res[1] = "Numéro de téléphoe Invalide";
 			return res;
@@ -77,23 +77,24 @@ public class ChauffeurServiceImp implements ChauffeurService {
 
 	@Override
 	public String[] update(Chauffeur chauffeur) throws Exception {
-		
+
 		String[] res = new String[2];
-//		Si longeur num CIN invalide
-		
+		// Si longeur num CIN invalide
+
 		if (chauffeur.getEmployee().getCin().length() != 8) {
 			res[0] = "0";
 			res[1] = "CIN Invalide";
 			return res;
 		}
-//		Si format email invalide
-		if (chauffeur.getEmployee().getEmail() == null || !EmailValidator.getInstance().isValid(chauffeur.getEmployee().getEmail())){
+		// Si format email invalide
+		if (chauffeur.getEmployee().getEmail() == null
+				|| !EmailValidator.getInstance().isValid(chauffeur.getEmployee().getEmail())) {
 			res[0] = "0";
 			res[1] = "E-Mail Invalide";
 			return res;
 		}
-//		Si numéro tel invalide
-		if (chauffeur.getEmployee().getTel() == null || chauffeur.getEmployee().getTel().length() !=8){
+		// Si numéro tel invalide
+		if (chauffeur.getEmployee().getTel() == null || chauffeur.getEmployee().getTel().length() != 8) {
 			res[0] = "0";
 			res[1] = "Numéro de téléphoe Invalide";
 			return res;
@@ -134,7 +135,7 @@ public class ChauffeurServiceImp implements ChauffeurService {
 	public void delete(Chauffeur chauffeur) throws Exception {
 		// TODO Auto-generated method stub
 		chauffeurDao.delete(chauffeur.getEmployee());
-		
+
 	}
 
 	@Override
@@ -142,15 +143,5 @@ public class ChauffeurServiceImp implements ChauffeurService {
 		// TODO Auto-generated method stub
 		return chauffeurDao.findAll(Chauffeur.class);
 	}
-
-	public ChauffeurDao getChauffeurDao() {
-		return chauffeurDao;
-	}
-
-	public void setChauffeurDao(ChauffeurDao chauffeurDao) {
-		this.chauffeurDao = chauffeurDao;
-	}
-	
-	
 
 }

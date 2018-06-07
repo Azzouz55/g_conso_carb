@@ -135,13 +135,17 @@
 						<h:outputText value="Nom : " />
 						<p:inputText value="#{cadreBean.cadre.employee.nom}"
 							style="width:200px" required="true" placeholder="Nom" maxlength="20"
-							requiredMessage="Nom obligatoire"></p:inputText>
+							requiredMessage="Nom obligatoire">
+							<p:keyFilter regEx="/[a-z_ ]/i" />
+							</p:inputText>
 
 
 						<h:outputText value="Prénom : " />
 						<p:inputText value="#{cadreBean.cadre.employee.prenom}" maxlength="20"
 							style="width:200px" required="true" placeholder="Prénom"
-							requiredMessage="Prénom obligatoire"></p:inputText>
+							requiredMessage="Prénom obligatoire">
+							<p:keyFilter regEx="/[a-z_ ]/i" />
+							</p:inputText>
 
 
 						<h:outputText value="Email : " />
@@ -155,14 +159,16 @@
 						<h:outputText value="Adresse : " />
 						<p:inputText value="#{cadreBean.cadre.employee.adresse}" maxlength="30"
 							style="width:200px" required="true" placeholder="Adresse"
-							requiredMessage="Adresse obligatoire"></p:inputText>
+							requiredMessage="Adresse obligatoire">
+							<p:keyFilter regEx="/[a-z0-9_ \.]/i" />
+							</p:inputText>
 
 
 						<h:outputText value="Téléphone : " />
 						<p:inputText value="#{cadreBean.cadre.employee.tel}"
 							style="width:200px" required="true" placeholder="Numéro de téléphone"
 							requiredMessage="Téléphone obligatoire" maxlength="8">
-							<p:keyFilter regEx="/[\d\-]/" />
+							<p:keyFilter regEx="/[\d\]/" />
 						</p:inputText>
 
 						<h:outputText value="Departement : " />

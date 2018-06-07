@@ -159,13 +159,4 @@ public class BonCarburantBean {
 	public void setTypeCarburant(TypeCarburant typeCarburant) {
 		this.typeCarburant = typeCarburant;
 	}
-
-	public BonCarburantService getBonCarburantService() {
-		return bonCarburantService;
-	}
-
-	public void setBonCarburantService(BonCarburantService bonCarburantService) {
-		this.bonCarburantService = bonCarburantService;
-	}
-
 }

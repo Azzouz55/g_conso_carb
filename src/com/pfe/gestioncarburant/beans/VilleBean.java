@@ -147,13 +147,4 @@ public class VilleBean {
 	public void setBtnEdit(boolean btnEdit) {
 		this.btnEdit = btnEdit;
 	}
-
-	public VilleService getVilleService() {
-		return villeService;
-	}
-
-	public void setVilleService(VilleService villeService) {
-		this.villeService = villeService;
-	}
-
 }

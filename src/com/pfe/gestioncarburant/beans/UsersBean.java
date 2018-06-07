@@ -153,12 +153,4 @@ public class UsersBean {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public UsersService getUsersService() {
-		return usersService;
-	}
-
-	public void setUsersService(UsersService usersService) {
-		this.usersService = usersService;
-	}
 }

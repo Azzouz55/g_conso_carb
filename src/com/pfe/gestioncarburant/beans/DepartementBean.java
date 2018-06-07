@@ -149,15 +149,6 @@ public class DepartementBean {
 	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
-
-	public DepartementService getDepartementService() {
-		return departementService;
-	}
-
-	public void setDepartementService(DepartementService departementService) {
-		this.departementService = departementService;
-	}
-
 	// Prevent direct access to AffectationVoitureCadre.xhtml
 
 	public void init() throws IOException {

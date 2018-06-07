@@ -116,14 +116,14 @@
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.nom}"
 							style="width:180px" required="true" placeholder="Nom"
 							requiredMessage="Nom obligatoire">
-							<p:keyFilter regEx="/[a-z_]/i" />
+							<p:keyFilter regEx="/[a-z_ ]/i" />
 						</p:inputText>
 
 						<h:outputText value="Prénom :" />
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.prenom}"
 							style="width:180px" required="true" placeholder="Prénom"
 							requiredMessage="Prénom obligatoire">
-							<p:keyFilter regEx="/[a-z_]/i" />
+							<p:keyFilter regEx="/[a-z_ ]/i" />
 						</p:inputText>
 
 						<h:outputText value="CIN :" />
@@ -145,7 +145,7 @@
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.adresse}"
 							style="width:180px" required="true" placeholder="Adresse"
 							requiredMessage="Adresse obligatoire">
-							<p:keyFilter regEx="/[a-z0-9_\.]/i" />
+							<p:keyFilter regEx="/[a-z0-9_ \.]/i" />
 						</p:inputText>
 
 
@@ -153,7 +153,7 @@
 						<p:inputText value="#{chauffeurBean.chauffeur.employee.tel}"
 							style="width:180px" required="true" placeholder="Téléphone"
 							requiredMessage="Téléphone obligatoire" maxlength="8">
-							<p:keyFilter regEx="/[\d\-]/" />
+							<p:keyFilter regEx="/[\d\]/" />
 						</p:inputText>
 
 						<p:commandLink title="Ajouter"

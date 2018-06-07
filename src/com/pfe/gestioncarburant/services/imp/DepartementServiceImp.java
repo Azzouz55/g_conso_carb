@@ -85,12 +85,4 @@ public class DepartementServiceImp implements DepartementService {
 		return (Departement) departementDao.findByCriteria(Departement.class, crit).get(0);
 	}
 
-	public DepartementDao getDepartementDao() {
-		return departementDao;
-	}
-
-	public void setDepartementDao(DepartementDao departementDao) {
-		this.departementDao = departementDao;
-	}
-
 }

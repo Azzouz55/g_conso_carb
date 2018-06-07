@@ -137,12 +137,4 @@ public class MarqueBean {
 		this.btnEdit = btnEdit;
 	}
 
-	public MarqueService getMarqueService() {
-		return marqueService;
-	}
-
-	public void setMarqueService(MarqueService marqueService) {
-		this.marqueService = marqueService;
-	}
-
 }

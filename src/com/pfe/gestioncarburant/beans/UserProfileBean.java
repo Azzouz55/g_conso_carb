@@ -41,13 +41,4 @@ public class UserProfileBean {
 		init();
 		return user.getEmployee().getNom() + ", " + user.getEmployee().getPrenom();
 	}
-
-	public UserProfileService getProfileUserService() {
-		return userProfileService;
-	}
-
-	public void setProfileUserService(UserProfileService userProfileService) {
-		this.userProfileService = userProfileService;
-	}
-
 }

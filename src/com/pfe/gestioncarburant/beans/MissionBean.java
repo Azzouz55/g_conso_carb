@@ -178,47 +178,6 @@ public class MissionBean {
 		}
 	}
 
-	// Injection Spring
-	public MissionService getMissionService() {
-		return missionService;
-	}
-
-	public void setMissionService(MissionService missionService) {
-		this.missionService = missionService;
-	}
-
-	public VoitureService getVoitureService() {
-		return voitureService;
-	}
-
-	public void setVoitureService(VoitureService voitureService) {
-		this.voitureService = voitureService;
-	}
-
-	public CadreService getCadreService() {
-		return cadreService;
-	}
-
-	public void setCadreService(CadreService cadreService) {
-		this.cadreService = cadreService;
-	}
-
-	public ChauffeurService getChauffeurService() {
-		return chauffeurService;
-	}
-
-	public void setChauffeurService(ChauffeurService chauffeurService) {
-		this.chauffeurService = chauffeurService;
-	}
-
-	public DepartementService getDepartementService() {
-		return departementService;
-	}
-
-	public void setDepartementService(DepartementService departementService) {
-		this.departementService = departementService;
-	}// **********************************
-
 	public Mission getMission() {
 		return mission;
 	}

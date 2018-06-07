@@ -61,12 +61,4 @@ public class CategorieServiceImp implements CategorieService {
 		return categorieDao.findAll(Categorie.class);
 	}
 
-	public CategorieDao getCategorieDao() {
-		return categorieDao;
-	}
-
-	public void setCategorieDao(CategorieDao categorieDao) {
-		this.categorieDao = categorieDao;
-	}
-
 }

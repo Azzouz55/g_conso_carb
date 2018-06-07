@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfe.gestioncarburant.dao.MarqueDao;
-import com.pfe.gestioncarburant.dao.imp.MarqueDaoImp;
-import com.pfe.gestioncarburant.entities.Categorie;
 import com.pfe.gestioncarburant.entities.Marque;
 import com.pfe.gestioncarburant.services.MarqueService;
+
 @Service
-public class MarqueServiceImp implements MarqueService{
+public class MarqueServiceImp implements MarqueService {
 	@Autowired
 	private MarqueDao marqueDao;
 
@@ -41,23 +40,17 @@ public class MarqueServiceImp implements MarqueService{
 			marqueDao.saveOrUpdate(marque);
 			return true;
 		}
-		
 		list = marqueDao.findByCriteria(Marque.class, crit);
-
 		if (list.isEmpty()) {
 			marqueDao.saveOrUpdate(marque);
 			return true;
 		}
-
 		return false;
 	}
 
 	@Override
 	public void delete(Marque marque) throws Exception {
-		
 		marqueDao.delete(marque);
-		
-
 	}
 
 	@Override
@@ -65,16 +58,4 @@ public class MarqueServiceImp implements MarqueService{
 		// TODO Auto-generated method stub
 		return marqueDao.findAll(Marque.class);
 	}
-
-	public MarqueDao getMarqueDao() {
-		return marqueDao;
-	}
-
-	public void setMarqueDao(MarqueDao marqueDao) {
-		this.marqueDao = marqueDao;
-	}
-	
-	
-
 }
-

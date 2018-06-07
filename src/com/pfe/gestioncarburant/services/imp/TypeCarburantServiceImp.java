@@ -26,7 +26,6 @@ public class TypeCarburantServiceImp implements TypeCarburantService {
 			typeCarburantDao.saveOrUpdate(typeCarburant);
 			return true;
 		}
-
 		return false;
 	}
 
@@ -51,9 +50,7 @@ public class TypeCarburantServiceImp implements TypeCarburantService {
 
 	@Override
 	public void delete(TypeCarburant typeCarburant) throws Exception {
-
 		typeCarburantDao.delete(typeCarburant);
-
 	}
 
 	@Override
@@ -67,13 +64,4 @@ public class TypeCarburantServiceImp implements TypeCarburantService {
 		Criterion crit = Restrictions.eq("libelle", libelle);
 		return typeCarburantDao.findByCriteria(TypeCarburant.class, crit);
 	}
-
-	public TypeCarburantDao getTypeCarburantDao() {
-		return typeCarburantDao;
-	}
-
-	public void setTypeCarburantDao(TypeCarburantDao typeCarburantDao) {
-		this.typeCarburantDao = typeCarburantDao;
-	}
-
 }

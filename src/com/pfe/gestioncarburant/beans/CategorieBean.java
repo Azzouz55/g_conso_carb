@@ -135,12 +135,4 @@ public class CategorieBean {
 		this.btnEdit = btnEdit;
 	}
 
-	public CategorieService getCategorieService() {
-		return categorieService;
-	}
-
-	public void setCategorieService(CategorieService categorieService) {
-		this.categorieService = categorieService;
-	}
-
 }

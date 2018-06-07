@@ -158,22 +158,6 @@ public class AffectationVoitureCadreBean {
 		this.listVoiture = listVoiture;
 	}
 
-	public AffectationVoitureService getAffectationVoitureService() {
-		return affectationVoitureService;
-	}
-
-	public void setAffectationVoitureService(AffectationVoitureService affectationVoitureService) {
-		this.affectationVoitureService = affectationVoitureService;
-	}
-
-	public VoitureService getVoitureService() {
-		return voitureService;
-	}
-
-	public void setVoitureService(VoitureService voitureService) {
-		this.voitureService = voitureService;
-	}
-
 	public AffectationId getId() {
 		return id;
 	}

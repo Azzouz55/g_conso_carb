@@ -160,12 +160,4 @@ public class EntreBonBean {
 		this.bonCarburant = bonCarburant;
 	}
 
-	public EntreeBonService getentreBonService() {
-		return entreeBonService;
-	}
-
-	public void setentreBonService(EntreeBonService entreBonService) {
-		this.entreeBonService = entreBonService;
-	}
-
 }

@@ -134,13 +134,4 @@ public class ChauffeurBean {
 	public void setBtnEdit(boolean btnEdit) {
 		this.btnEdit = btnEdit;
 	}
-
-	public ChauffeurService getChauffeurService() {
-		return chauffeurService;
-	}
-
-	public void setChauffeurService(ChauffeurService chauffeurService) {
-		this.chauffeurService = chauffeurService;
-	}
-
 }

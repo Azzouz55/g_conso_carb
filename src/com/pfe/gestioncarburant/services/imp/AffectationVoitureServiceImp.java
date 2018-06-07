@@ -47,13 +47,4 @@ public class AffectationVoitureServiceImp implements AffectationVoitureService {
 		Criterion crit2 = Restrictions.isNull("dateRetour");
 		return affectationDao.findByCriteria(Affectation.class, crit, crit2);
 	}
-
-	public AffectationDao getAffectationDao() {
-		return affectationDao;
-	}
-
-	public void setAffectationDao(AffectationDao affectationDao) {
-		this.affectationDao = affectationDao;
-	}
-
 }

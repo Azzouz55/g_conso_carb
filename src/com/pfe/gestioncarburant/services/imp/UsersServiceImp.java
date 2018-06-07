@@ -184,14 +184,6 @@ public class UsersServiceImp implements UsersService {
 		return usersDao.findAll(User.class);
 	}
 
-	public UsersDao getUsersDao() {
-		return usersDao;
-	}
-
-	public void setUsersDao(UsersDao usersDao) {
-		this.usersDao = usersDao;
-	}
-
 	@Override
 	public User findByLogin(String login) throws UsernameNotFoundException {
 		User user = new User();

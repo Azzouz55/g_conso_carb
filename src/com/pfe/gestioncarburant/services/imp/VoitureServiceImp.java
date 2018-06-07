@@ -80,7 +80,6 @@ public class VoitureServiceImp implements VoitureService {
 	public List<Voiture> findVoitureByCadre(Affectation affectation) throws Exception {
 		Criterion crit = Restrictions.eq("matricule", affectation.getId().getMatriculeVoiture());
 		return voitureDao.findByCriteria(Voiture.class, crit);
-
 	}
 
 	@Override
@@ -89,13 +88,4 @@ public class VoitureServiceImp implements VoitureService {
 		return (Voiture) voitureDao.findByCriteria(Voiture.class, crit).get(0);
 
 	}
-
-	public VoitureDao getVoitureDao() {
-		return voitureDao;
-	}
-
-	public void setVoitureDao(VoitureDao voitureDao) {
-		this.voitureDao = voitureDao;
-	}
-
 }

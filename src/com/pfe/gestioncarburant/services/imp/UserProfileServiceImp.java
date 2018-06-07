@@ -18,18 +18,8 @@ public class UserProfileServiceImp implements UserProfileService {
 
 	@Override
 	public User findUserByUsername(String username) throws Exception {
-
 		Criterion crit = Restrictions.eq("login", username);
 		return (User) usersDao.findByCriteria(User.class, crit).get(0);
-
-	}
-
-	public UsersDao getUsersDao() {
-		return usersDao;
-	}
-
-	public void setUsersDao(UsersDao usersDao) {
-		this.usersDao = usersDao;
 	}
 
 }

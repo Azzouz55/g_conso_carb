@@ -180,29 +180,4 @@ public class CadreBean {
 	public void setBtnEdit(boolean btnEdit) {
 		this.btnEdit = btnEdit;
 	}
-
-	public CadreService getCadreService() {
-		return cadreService;
-	}
-
-	public void setCadreService(CadreService cadreService) {
-		this.cadreService = cadreService;
-	}
-
-	public CategorieService getCategorieService() {
-		return categorieService;
-	}
-
-	public void setCategorieService(CategorieService categorieService) {
-		this.categorieService = categorieService;
-	}
-
-	public DepartementService getDepartementService() {
-		return departementService;
-	}
-
-	public void setDepartementService(DepartementService departementService) {
-		this.departementService = departementService;
-	}
-
 }

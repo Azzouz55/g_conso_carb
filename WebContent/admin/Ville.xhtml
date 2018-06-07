@@ -74,7 +74,7 @@
 						<h:outputText value="Libelle" />
 						<p:inputText value="#{villeBean.ville.libelle}" required="true"
 							requiredMessage="Libelle obligatoire" maxlength="20">
-							<p:keyFilter regEx="/[a-z_]/i" />
+							<p:keyFilter regEx="/[a-z_ ]/i" />
 							</p:inputText>
 
 						<h:outputText value="Latitude" />

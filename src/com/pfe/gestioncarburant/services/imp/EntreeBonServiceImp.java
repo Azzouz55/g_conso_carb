@@ -61,13 +61,4 @@ public class EntreeBonServiceImp implements EntreeBonService {
 	public List<EntreeBon> findAll() throws Exception {
 		return entreeBonDao.findAll(EntreeBon.class);
 	}
-
-	public EntreeBonDao getEntreBonDao() {
-		return entreeBonDao;
-	}
-
-	public void setEntreBonDao(EntreeBonDao entreeBonDao) {
-		this.entreeBonDao = entreeBonDao;
-	}
-
 }

@@ -145,13 +145,4 @@ public class CadreServiceImp implements CadreService {
 		return (Cadre) cadreDao.findByCriteria(Cadre.class, crit).get(0);
 
 	}
-
-	public CadreDao getCadreDao() {
-		return cadreDao;
-	}
-
-	public void setCadreDao(CadreDao cadreDao) {
-		this.cadreDao = cadreDao;
-	}
-
 }

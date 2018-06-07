@@ -135,13 +135,4 @@ public class TypeCarburantBean {
 	public void setBtnEdit(boolean btnEdit) {
 		this.btnEdit = btnEdit;
 	}
-
-	public TypeCarburantService getTypeCarburantService() {
-		return typeCarburantService;
-	}
-
-	public void setTypeCarburantService(TypeCarburantService typeCarburantService) {
-		this.typeCarburantService = typeCarburantService;
-	}
-
 }

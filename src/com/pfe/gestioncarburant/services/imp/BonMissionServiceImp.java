@@ -98,22 +98,6 @@ public class BonMissionServiceImp implements BonMissionService {
 		return bonMissionDao.findByCriteria(BonMission.class, crit);
 	}
 
-	public BonMissionDao getBonMissionDao() {
-		return bonMissionDao;
-	}
-
-	public void setBonMissionDao(BonMissionDao bonMissionDao) {
-		this.bonMissionDao = bonMissionDao;
-	}
-
-	public BonCarburantDao getBonCarburantDao() {
-		return bonCarburantDao;
-	}
-
-	public void setBonCarburantDao(BonCarburantDao bonCarburantDao) {
-		this.bonCarburantDao = bonCarburantDao;
-	}
-
 	@Override
 	public int getTotalLitre(Mission mission) throws Exception {
 		int total = 0, nbrLitre = 0;

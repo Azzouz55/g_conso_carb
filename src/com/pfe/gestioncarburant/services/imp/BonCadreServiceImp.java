@@ -123,14 +123,6 @@ public class BonCadreServiceImp implements BonCadreService {
 		return bonCadreDao.findByCriteria(BonCadre.class, crit);
 	}
 
-	public BonCadreDao getBonCadreDao() {
-		return bonCadreDao;
-	}
-
-	public void setBonCadreDao(BonCadreDao bonCadreDao) {
-		this.bonCadreDao = bonCadreDao;
-	}
-
 	@Override
 	public MoisDTO findByMonth(BonCarburant bonCarburant) {
 		// TODO Auto-generated method stub

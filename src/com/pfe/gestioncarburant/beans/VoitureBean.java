@@ -210,21 +210,4 @@ public class VoitureBean {
 	public void setRead(boolean read) {
 		this.read = read;
 	}
-
-	public VoitureService getVoitureService() {
-		return voitureService;
-	}
-
-	public void setVoitureService(VoitureService voitureService) {
-		this.voitureService = voitureService;
-	}
-
-	public ModelService getModeleService() {
-		return modelService;
-	}
-
-	public void setModeleService(ModelService modelService) {
-		this.modelService = modelService;
-	}
-
 }

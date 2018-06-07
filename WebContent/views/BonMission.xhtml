@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<f:view>
+	<f:view>
 		<f:metadata>
 			<f:viewParam name="id" />
 			<f:event type="preRenderView" listener="#{bonMissionBean.init}" />
@@ -17,7 +17,12 @@
 </h:head>
 <ui:composition template="../facelets/Template.xhtml">
 	<ui:define name="title">
-		<h2>Affectation des bons de mission '#<h:outputText value="#{bonMissionBean.mission.id} " style="color:black"/>'</h2>
+		<h2>
+			Affectation des bons de mission '#
+			<h:outputText value="#{bonMissionBean.mission.id} "
+				style="color:black" />
+			'
+		</h2>
 	</ui:define>
 	<ui:define name="content">
 		<body>
@@ -28,10 +33,10 @@
 					rowsPerPageTemplate="10,20"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Bons de carburant affectés à #<h:outputText value="#{bonMissionBean.mission.id}" />
+					Bons de carburant affectés à #<h:outputText
+							value="#{bonMissionBean.mission.id}" />
 						<p:commandLink styleClass="btn btn-round btn-success"
-							style="float:left;color:white" action="Mission"
-							process="@this">
+							style="float:left;color:white" action="Mission" process="@this">
 							<i class="fa fa-arrow-left"></i>
 							Retour
 						</p:commandLink>
@@ -103,9 +108,10 @@
 							pattern="dd/MM/yyyy" mindate="Date.now()"
 							rendered="#{bonMissionBean.btnAdd}" style="width:180px">
 						</p:calendar>
-						<p:inputText value="#{bonMissionBean.bonMission.id.dateAffectation}"
-							pattern="dd/MM/yyyy" rendered="#{bonMissionBean.btnEdit}"
-							style="width:180px">
+						<p:inputText
+							value="#{bonMissionBean.bonMission.id.dateAffectation}"
+							pattern="dd/MM/yyyy" disabled="#{bonCadreBean.btnEdit}"
+							rendered="#{bonMissionBean.btnEdit}" style="width:180px">
 						</p:inputText>
 
 						<h:outputText value="Bon Carburant" />
@@ -118,7 +124,7 @@
 								itemLabel="#{bonCarburant.typeCarburant.libelle} - #{bonCarburant.litre}"
 								itemValue="#{bonCarburant.id}" />
 						</p:selectOneMenu>
-
+						
 						<p:inputText rendered="#{bonMissionBean.btnEdit}" readonly="true"
 							style="width:180px"
 							value="#{bonMissionBean.bonCarburant.typeCarburant.libelle} - #{bonMissionBean.bonCarburant.litre}L">
@@ -148,8 +154,9 @@
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 
-						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
-							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
+							title="Annuler" style="color:white" onclick="PF('dlg1').hide();"
+							process="@this">
 							<i class="fa fa-close"></i>
 						</p:commandLink>
 					</h:panelGrid>

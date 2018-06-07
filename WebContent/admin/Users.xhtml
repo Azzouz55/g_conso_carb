@@ -126,14 +126,14 @@
 						<p:inputText value="#{usersBean.user.employee.nom}"
 							style="width:180px" required="true" placeholder="Nom"
 							requiredMessage="Nom obligatoire">
-							<p:keyFilter regEx="/[a-z_]/i" />
+							<p:keyFilter regEx="/[a-z_ ]/i" />
 						</p:inputText>
 
 						<h:outputText value="Prénom :" />
 						<p:inputText value="#{usersBean.user.employee.prenom}"
 							style="width:180px" required="true" placeholder="Prénom"
 							requiredMessage="Prénom obligatoire">
-							<p:keyFilter regEx="/[a-z_]/i" />
+							<p:keyFilter regEx="/[a-z_ ]/i" />
 						</p:inputText>
 
 						<h:outputText value="E-Mail :" />
@@ -147,7 +147,7 @@
 						<p:inputText value="#{usersBean.user.employee.adresse}"
 							style="width:180px" required="true" placeholder="Adresse"
 							requiredMessage="Adresse obligatoire">
-							<p:keyFilter regEx="/[a-z0-9_\.]/i" />
+							<p:keyFilter regEx="/[a-z0-9_ \.]/i" />
 						</p:inputText>
 
 

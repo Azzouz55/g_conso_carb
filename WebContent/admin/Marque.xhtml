@@ -74,7 +74,7 @@
 						<h:outputText value="Libelle" />
 						<p:inputText value="#{marqueBean.marque.libelle}" required="true"
 							requiredMessage="Libelle obligatoire">
-							<p:keyFilter regEx="/[a-z0-9_]/i"/>
+							<p:keyFilter regEx="/[a-z0-9_ ]/i"/>
 							</p:inputText>
 
 						<p:commandLink title="Ajouter" styleClass="btn btn-round btn-primary btn-lg"

@@ -68,14 +68,6 @@ public class BonCarburantServiceImp implements BonCarburantService {
 		return bonCarburantDao.findAll(BonCarburant.class);
 	}
 
-	public BonCarburantDao getBonCarburantDao() {
-		return bonCarburantDao;
-	}
-
-	public void setBonCarburantDao(BonCarburantDao bonCarburantDao) {
-		this.bonCarburantDao = bonCarburantDao;
-	}
-
 	@Override
 	public List<BonCarburant> findBonCarburantByVoiture(Voiture voiture) throws Exception {
 		Criterion crit = Restrictions.eq("typeCarburant", voiture.getTypeCarburant());

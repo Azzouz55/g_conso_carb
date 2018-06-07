@@ -150,14 +150,6 @@ public class ModeleBean {
 		this.marque = marque;
 	}
 
-	public ModelService getModelService() {
-		return modelService;
-	}
-
-	public void setModelService(ModelService modelService) {
-		this.modelService = modelService;
-	}
-
 	// Prevent direct access to Model.xhtml
 
 	public void init() throws IOException {
