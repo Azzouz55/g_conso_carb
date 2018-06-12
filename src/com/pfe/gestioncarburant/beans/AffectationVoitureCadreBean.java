@@ -41,7 +41,7 @@ public class AffectationVoitureCadreBean {
 		affectation = new Affectation();
 		id = new AffectationId();
 		voiture = new Voiture();
-
+		// voiture = new Voiture();
 		btnAdd = true;
 		btnEdit = false;
 		disabled = false;
