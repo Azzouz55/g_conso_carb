@@ -15,25 +15,25 @@
 				<div class="nav toggle">
 					<a id="menu_toggle"><i class="fa fa-bars"></i></a>
 				</div>
+				<form id="f1" action="#{request.contextPath}/appLogout"
+					method="post">
+					<ul class="nav navbar-nav navbar-right">
 
-				<ul class="nav navbar-nav navbar-right">
-					<li class=""><a href="javascript:;"
-						class="user-profile dropdown-toggle" data-toggle="dropdown"
-						aria-expanded="false"> <i class="fa fa-user"></i> <span
-							class=" fa fa-angle-down"></span></a>
-						<ul class="dropdown-menu dropdown-usermenu pull-right">
-							<li><a onclick="PF('dlg').show();">Profile</a></li>
-							<li>
-								<form id="f1" action="#{request.contextPath}/appLogout"
-									method="post">
-									<a href="javascript:{}"
-										onclick="document.getElementById('f1').submit();"> <i
+						<li class=""><a href="javascript:;"
+							class="user-profile dropdown-toggle" data-toggle="dropdown"
+							aria-expanded="false"> <i class="fa fa-user "></i> <span
+								class=" fa fa-angle-down"></span></a>
+							<ul class="dropdown-menu dropdown-usermenu pull-right">
+								<li><a onclick="PF('dlg').show();">Profile</a></li>
+								<li><a href="javascript:{}"
+									onclick="document.getElementById('f1').submit();"> <i
 										class="fa fa-sign-out pull-right" /> Déconnexion
-									</a>
-								</form>
-							</li>
-						</ul></li>
-				</ul>
+								</a></li>
+							</ul></li>
+						<li class=""><br /> <p:clock mode="server"
+								pattern="HH:mm dd.MM.yyyy" /></li>
+					</ul>
+				</form>
 			</nav>
 		</div>
 	</div>

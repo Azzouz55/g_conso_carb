@@ -154,6 +154,9 @@
 							style="color:white" action="#{chauffeurBean.ajouter()}" update="tab"
 							rendered="#{chauffeurBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
+							<p:confirm header="Confirmation"
+								message="Vous êtes sur d'affecter ce chauffeur?"
+								icon="ui-icon-alert" />
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 

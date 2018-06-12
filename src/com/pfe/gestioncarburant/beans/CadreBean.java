@@ -8,13 +8,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.pfe.gestioncarburant.entities.BonCadre;
 import com.pfe.gestioncarburant.entities.Cadre;
 import com.pfe.gestioncarburant.entities.Categorie;
 import com.pfe.gestioncarburant.entities.Departement;
+import com.pfe.gestioncarburant.services.BonCadreService;
 import com.pfe.gestioncarburant.services.CadreService;
 import com.pfe.gestioncarburant.services.CategorieService;
 import com.pfe.gestioncarburant.services.DepartementService;
@@ -26,6 +29,8 @@ public class CadreBean {
 
 	@Autowired
 	private CadreService cadreService;
+	@Autowired
+	private BonCadreService bonCadreService;
 	@Autowired
 	private CategorieService categorieService;
 	@Autowired
@@ -108,16 +113,27 @@ public class CadreBean {
 
 	public void supprimer() {
 		try {
-			cadreService.delete(cadre);
+			List<BonCadre> listBonCadre = bonCadreService.findBonCadreByCadre(cadre);
+			if (listBonCadre.isEmpty()) {
+				cadreService.delete(cadre);
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", "Suppression effectué"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+						"Attention", "Cadre : " + cadre.getMatricule() + " avoir au moins une voiture"));
 
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", "Suppression effectué"));
+			}
 
+		} catch (ConstraintViolationException exceptionViolation) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Attention",
+					"Cadre : " + cadre.getMatricule() + " avoir au moins une voiture"));
+			exceptionViolation.printStackTrace();
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention", "Erreur de suppression"));
 			e.printStackTrace();
 		}
+
 	}
 
 	public List<Cadre> getList() {

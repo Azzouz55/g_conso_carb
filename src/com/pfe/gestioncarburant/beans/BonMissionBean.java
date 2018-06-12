@@ -60,20 +60,26 @@ public class BonMissionBean {
 	}
 
 	public void ajouter() {
-		id.setIdMission(mission.getId());
-		bonMission.setId(id);
 		try {
+			id.setIdMission(mission.getId());
+			bonMission.setId(id);
 			String[] test = bonMissionService.save(bonMission);
-			if (test[0] == "1") {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", test[1]));
-				RequestContext.getCurrentInstance().addCallbackParam("added", true);
+			if (mission.getDateRetour() == null) {
+				if (test[0] == "1") {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", test[1]));
+					RequestContext.getCurrentInstance().addCallbackParam("added", true);
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", test[1]));
+					RequestContext.getCurrentInstance().addCallbackParam("added", false);
+				}
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", test[1]));
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", "Mission finie"));
 				RequestContext.getCurrentInstance().addCallbackParam("added", false);
-
 			}
+
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention", "Erreur d'affectation"));
@@ -84,14 +90,20 @@ public class BonMissionBean {
 
 	public void modifier() {
 		try {
-			String test[] = bonMissionService.update(bonMission);
-			if (test[0] == "1") {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", test[1]));
-				RequestContext.getCurrentInstance().addCallbackParam("added", true);
+			if (mission.getDateRetour() == null) {
+				String test[] = bonMissionService.update(bonMission);
+				if (test[0] == "1") {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO, "Succès", test[1]));
+					RequestContext.getCurrentInstance().addCallbackParam("added", true);
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", test[1]));
+					RequestContext.getCurrentInstance().addCallbackParam("added", false);
+				}
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", test[1]));
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte", "Mission finie"));
 				RequestContext.getCurrentInstance().addCallbackParam("added", false);
 			}
 

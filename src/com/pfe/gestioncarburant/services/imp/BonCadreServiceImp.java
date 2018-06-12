@@ -26,17 +26,54 @@ public class BonCadreServiceImp implements BonCadreService {
 	private BonCarburantDao bonCarburantDao;
 
 	@Override
+	public int getTotalLitre(Cadre cadre) throws Exception {
+		int total = 0, nbrLitre = 0;
+		List<BonCadre> listBonCadre = new ArrayList<>();
+
+		listBonCadre = findBonCadreByCadre(cadre);
+		for (int index = 0; index < listBonCadre.size(); index++) {
+			nbrLitre = (listBonCadre.get(index).getQte() * listBonCadre.get(index).getBonCarburant().getLitre());
+			total = total + nbrLitre;
+		}
+		return total;
+	}
+
+	@Override
+	public int getTotalLitreByDate(Cadre cadre, Calendar date) throws Exception {
+		Calendar dateBon = Calendar.getInstance();
+
+		int total = 0, nbrLitre = 0;
+		List<BonCadre> listBonCadre = new ArrayList<>();
+		listBonCadre = findBonCadreByCadre(cadre);
+		for (int index = 0; index < listBonCadre.size(); index++) {
+			dateBon.setTime(listBonCadre.get(index).getId().getDateAffectation());
+			if (dateBon.get(Calendar.MONTH) == date.get(Calendar.MONTH)) {
+				nbrLitre = (listBonCadre.get(index).getQte() * listBonCadre.get(index).getBonCarburant().getLitre());
+				total = total + nbrLitre;
+			}
+
+		}
+		return total;
+	}
+
+	@Override
 	public String[] save(BonCadre bonCadre) throws Exception {
 		String[] result = new String[2];
-		int qteTotal = 0, qteParMois = 0, qteAutotrise = 0;
-
-		qteParMois = getTotalLitreByDate(bonCadre.getCadre(), Calendar.getInstance());
-		qteTotal = qteParMois + bonCadre.getQte();
+		int tmp = 0, qteTotal = 0, qteParMois = 0, qteAutotrise = 0;
 		qteAutotrise = bonCadre.getCadre().getCategorie().getLittreParMois();
-		if (qteAutotrise < qteTotal) {
+		qteParMois = getTotalLitreByDate(bonCadre.getCadre(), Calendar.getInstance());
+		tmp = bonCadre.getQte();
+		qteTotal = qteParMois + tmp;
+
+		if (qteTotal > qteAutotrise) {
 			int reste = qteAutotrise - qteParMois;
 			result[0] = "0";
-			result[1] = "Il reste " + reste + " L pour ce mois";
+			if (reste != 0) {
+				result[1] = "Il reste " + reste + " L pour ce mois";
+			} else {
+				result[1] = "Cadre à attein ces limites de nobre de littres par mois";
+			}
+
 			return result;
 		}
 
@@ -78,7 +115,7 @@ public class BonCadreServiceImp implements BonCadreService {
 		int qteTotal = 0, qteParMois = 0, qteAutotrise = 0;
 
 		qteParMois = getTotalLitreByDate(bonCadre.getCadre(), Calendar.getInstance());
-		qteTotal = qteParMois + bonCadre.getQte();
+		qteTotal = qteParMois + (bonCadre.getQte() * bonCadre.getBonCarburant().getLitre());
 		qteAutotrise = bonCadre.getCadre().getCategorie().getLittreParMois();
 		if (qteAutotrise < qteTotal) {
 			int reste = qteAutotrise - qteParMois;
@@ -139,37 +176,6 @@ public class BonCadreServiceImp implements BonCadreService {
 	public MoisDTO findByQuarter(BonCarburant bonCarburant) {
 		// TODO Auto-generated method stub
 		return bonCadreDao.findByQuarter(bonCarburant);
-	}
-
-	@Override
-	public int getTotalLitre(Cadre cadre) throws Exception {
-		int total = 0, nbrLitre = 0;
-		List<BonCadre> listBonCadre = new ArrayList<>();
-
-		listBonCadre = findBonCadreByCadre(cadre);
-		for (int index = 0; index < listBonCadre.size(); index++) {
-			nbrLitre = (listBonCadre.get(index).getQte() * listBonCadre.get(index).getBonCarburant().getLitre());
-			total = total + nbrLitre;
-		}
-		return total;
-	}
-
-	@Override
-	public int getTotalLitreByDate(Cadre cadre, Calendar date) throws Exception {
-		Calendar dateBon = Calendar.getInstance();
-
-		int total = 0, nbrLitre = 0;
-		List<BonCadre> listBonCadre = new ArrayList<>();
-		listBonCadre = findBonCadreByCadre(cadre);
-		for (int index = 0; index < listBonCadre.size(); index++) {
-			dateBon.setTime(listBonCadre.get(index).getId().getDateAffectation());
-			if (dateBon.get(Calendar.MONTH) == date.get(Calendar.MONTH)) {
-				nbrLitre = (listBonCadre.get(index).getQte() * listBonCadre.get(index).getBonCarburant().getLitre());
-				total = total + nbrLitre;
-			}
-
-		}
-		return total;
 	}
 
 }

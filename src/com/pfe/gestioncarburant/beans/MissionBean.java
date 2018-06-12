@@ -108,6 +108,7 @@ public class MissionBean {
 		String[] result = new String[2];
 
 		try {
+
 			cadre = cadreService.getCadre(cadre);
 			mission.setCadre(cadre);
 			mission.setDepartementByIdDepartement(cadre.getDepartement());

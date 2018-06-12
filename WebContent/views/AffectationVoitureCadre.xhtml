@@ -20,7 +20,13 @@
 
 
 	<ui:define name="title">
-		<h2>Affectation de voiture de '<h:outputText value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}" style="color:black" />'</h2>
+		<h2>
+			Affectation de voiture de '
+			<h:outputText
+				value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}"
+				style="color:black" />
+			'
+		</h2>
 	</ui:define>
 
 	<ui:define name="content">
@@ -32,7 +38,8 @@
 					rowsPerPageTemplate="5,10"
 					emptyMessage="Aucun enregistrement trouvé.">
 					<f:facet name="header">
-					Voitures affectés à <h:outputText value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}" />
+					Voitures affectés à <h:outputText
+							value="#{affectationVoitureCadreBean.cadre.employee.nom} #{affectationVoitureCadreBean.cadre.employee.prenom}" />
 						<p:commandLink styleClass="btn btn-round btn-success"
 							style="float:left;color:white" action="Cadre" process="@this">
 							<i class="fa fa-arrow-left"></i>
@@ -139,6 +146,9 @@
 							action="#{affectationVoitureCadreBean.ajouter()}" update="tab"
 							rendered="#{affectationVoitureCadreBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status, args)">
+							<p:confirm header="Confirmation"
+								message="Vous êtes sur d'affecter cette voiture?"
+								icon="ui-icon-alert" />
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 
@@ -155,8 +165,9 @@
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 
-						<p:commandLink styleClass="btn btn-round btn-danger btn-lg" title="Annuler"
-							style="color:white" onclick="PF('dlg1').hide();" process="@this">
+						<p:commandLink styleClass="btn btn-round btn-danger btn-lg"
+							title="Annuler" style="color:white" onclick="PF('dlg1').hide();"
+							process="@this">
 							<i class="fa fa-close"></i>
 						</p:commandLink>
 

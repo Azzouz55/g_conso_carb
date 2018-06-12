@@ -112,6 +112,9 @@
 							style="color:white" action="#{entreBonBean.ajouter()}"
 							update="tab" rendered="#{entreBonBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status, args)">
+							<p:confirm header="Confirmation"
+								message="Vous êtes sur d'affecter cet enregistrement?"
+								icon="ui-icon-alert" />
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 

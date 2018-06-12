@@ -164,6 +164,9 @@
 							action="#{voitureBean.ajouter()}" update="tab"
 							rendered="#{voitureBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
+							<p:confirm header="Confirmation"
+								message="Vous êtes sur d'enregistrer cette voiture?"
+								icon="ui-icon-alert" />
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 

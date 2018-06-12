@@ -75,4 +75,11 @@ public class BonCarburantServiceImp implements BonCarburantService {
 		return bonCarburantDao.findByCriteria(BonCarburant.class, crit);
 	}
 
+	@Override
+	public BonCarburant findBonCarburantByBonCarburant(int bonCarburant) throws Exception {
+		Criterion crit = Restrictions.idEq(bonCarburant);
+		// TODO Auto-generated method stub
+		return (BonCarburant) bonCarburantDao.findByCriteria(BonCarburant.class, crit).get(0);
+	}
+
 }

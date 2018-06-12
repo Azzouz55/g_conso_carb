@@ -86,8 +86,8 @@ public class BonMissionServiceImp implements BonMissionService {
 	public void delete(BonMission bonMission) throws Exception {
 		BonCarburant bonCarburant = (BonCarburant) bonCarburantDao
 				.findByCriteria(BonCarburant.class, Restrictions.idEq(bonMission.getId().getIdBonCarburant())).get(0);
-		bonCarburant.setQte(bonCarburant.getQte() + bonMission.getQte());
 		bonMissionDao.delete(bonMission);
+		bonCarburant.setQte(bonCarburant.getQte() + bonMission.getQte());
 		bonCarburantDao.saveOrUpdate(bonCarburant);
 
 	}

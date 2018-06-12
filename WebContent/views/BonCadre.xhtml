@@ -63,7 +63,7 @@
 					<p:column headerText="Action">
 						<p:commandLink title="Supprimer"
 							styleClass="btn btn-round btn-danger btn-lg" style="color:white"
-							action="#{bonCadreBean.supprimer()}" update="tab" process="@this">
+							action="#{bonCadreBean.supprimer()}" update="tab" process="@this" rendered="#{request.isUserInRole('Administrateur')}">
 							<f:setPropertyActionListener value="#{aff}"
 								target="#{bonCadreBean.bonCadre}" />
 							<p:confirm header="Confirmation"
@@ -130,6 +130,9 @@
 							action="#{bonCadreBean.ajouter()}" update="tab"
 							rendered="#{bonCadreBean.btnAdd}"
 							oncomplete="handleAddRequest(xhr, status,args)">
+							<p:confirm header="Confirmation"
+								message="Vous êtes sur d'affecter ce bon de carburant?"
+								icon="ui-icon-alert" />
 							<i class="fa fa-check"></i>
 						</p:commandLink>
 

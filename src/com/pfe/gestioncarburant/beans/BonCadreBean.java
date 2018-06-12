@@ -68,8 +68,8 @@ public class BonCadreBean {
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerte",
-							"S'il vous plait, affectez une voiture pour le cadre n°:" + cadre.getMatricule()
-									+ "avant l'affectation des bons"));
+							"S'il vous plait, affectez une voiture pour le cadre n°:'" + cadre.getMatricule()
+									+ "' avant l'affectation des bons"));
 			e.printStackTrace();
 		}
 	}
@@ -96,9 +96,12 @@ public class BonCadreBean {
 	public void ajouter() {
 		try {
 			Cadre cadre2 = cadreService.getCadre(cadre);
+			BonCarburant bonCarburant2 = bonCarburantService.findBonCarburantByBonCarburant(id.getIdBonCarburant());
 			bonCadre.setCadre(cadre2);
 			id.setMatriculeCadre(cadre.getMatricule());
 			bonCadre.setId(id);
+			bonCadre.setBonCarburant(bonCarburant2);
+
 			String[] test = bonCadreService.save(bonCadre);
 			if (test[0] == "1") {
 				FacesContext.getCurrentInstance().addMessage(null,
